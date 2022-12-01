@@ -9,4 +9,4 @@ class ListScheduleOptions(AbstractHandler):
         ]
     
     def get_namespace(self) -> str:
-        return 'Schedule'
+        return 'Schedule.Listing'

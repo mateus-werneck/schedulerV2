@@ -6,7 +6,7 @@ from App.Lib.Standard.abstract_handler_request import AbstractHandlerRequest
 class HelpHandler(AbstractHandlerRequest):
 
     def get_command(self) -> str:
-        return 'help'
+        return 'ajuda'
 
     def get_steps(self) -> list:
         return [self.help]

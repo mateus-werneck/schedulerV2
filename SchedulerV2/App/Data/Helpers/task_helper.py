@@ -1,7 +1,7 @@
-from App.Data.Helpers.date_helper import (treat_datetime_to_pt_date,
-                                          treat_iso_string_to_datetime)
 from App.Data.Helpers.message_helper import alarm_clock
-from App.Data.Helpers.time_helper import treat_datetime_to_string_hour
+from App.Lib.Treat.date_treat import (treat_datetime_to_pt_date,
+                                      treat_iso_string_to_datetime)
+from App.Lib.Treat.time_treat import treat_datetime_to_string_hour
 
 
 def treat_task_to_message(task: dict, grade: str):
