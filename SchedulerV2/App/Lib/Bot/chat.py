@@ -30,3 +30,13 @@ class BotChat(AbstractSingleton):
             telegram_bot.delete_message(chat_id, message_id)
         except Exception:
             return
+
+    def extract_callback_data(self):
+        bot_context = self.get_bot_context()
+        
+        if not bot_context.has_callback_data():
+            return
+        
+        self.delete_message()
+        return bot_context.get_callback_data()
+        
