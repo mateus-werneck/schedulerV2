@@ -1,7 +1,7 @@
 from App.Queues.Standard.abstract_handler import AbstractHandler
 
 
-class ListScheduleOptions(AbstractHandler):
+class ListGradeOptions(AbstractHandler):
     
     def get_steps(self) -> list:
         return [
@@ -9,4 +9,4 @@ class ListScheduleOptions(AbstractHandler):
         ]
     
     def get_namespace(self) -> str:
-        return 'Schedule.Listing'
+        return 'Schedule.Listing.Grade'

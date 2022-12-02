@@ -5,7 +5,8 @@ from App.Data.Helpers.message_helper import (add_icon, group_icon,
 from App.Handlers.grade_handler import GradeHandler
 from App.Lib.Bot.chat import BotChat
 from App.Lib.Bot.client import BotClient
-from App.Queues.Grade.Listing.list_grade_options import ListGradeOptions
+from App.Queues.Schedule.Listing.Grade.list_grade_options import \
+    ListGradeOptions
 
 
 class ListCategories(ListGradeOptions):
