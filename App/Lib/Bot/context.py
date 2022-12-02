@@ -81,3 +81,9 @@ class BotContext(AbstractSingleton):
             return False
         callback_data = self.get_callback_data()
         return callback_data.find('go_back') != -1 
+    
+    def has_exit_button(self):
+        if not self.has_callback_data():
+            return False
+        callback_data = self.get_callback_data()
+        return callback_data.find('exit') != -1 
