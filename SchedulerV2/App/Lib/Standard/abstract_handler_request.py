@@ -38,6 +38,8 @@ class AbstractHandlerRequest(ABC):
     def __add_command_handler(self):
         bot = BotClient.instance()
         command = self.get_command()
+        if command == '':
+            return
         bot.add_command_handler(command, self.execute)
 
     def __set_bot_mode(self):

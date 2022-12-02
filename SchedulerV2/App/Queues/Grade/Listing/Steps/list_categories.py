@@ -1,16 +1,15 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 
 from App.Data.Helpers.inline_keyboard_helper import treat_menu
-from App.Data.Helpers.message_helper import (calendar_icon, category_icon,
-                                             group_icon, pin_icon)
-from App.Handlers.schedule_handler import ScheduleHandler
+from App.Data.Helpers.message_helper import (add_icon, group_icon,
+                                             open_book_icon)
+from App.Handlers.grade_handler import GradeHandler
 from App.Lib.Bot.chat import BotChat
 from App.Lib.Bot.client import BotClient
-from App.Queues.Schedule.Listing.list_schedule_options import \
-    ListScheduleOptions
+from App.Queues.Grade.Listing.list_grade_options import ListGradeOptions
 
 
-class ListCategories(ListScheduleOptions):
+class ListCategories(ListGradeOptions):
 
     def handle(self) -> bool:
         self.set_callback()
@@ -18,7 +17,7 @@ class ListCategories(ListScheduleOptions):
     
     def set_callback(self):
         menu = self.send_menu()
-        callback_function = ScheduleHandler.instance().execute
+        callback_function = GradeHandler.instance().execute
         BotClient.instance().add_callback_handler(menu, callback_function)
         
     def send_menu(self):
@@ -28,25 +27,21 @@ class ListCategories(ListScheduleOptions):
         return schedule_menu
         
     def get_title(self):
-        return f'Escolha uma categoria {category_icon()}'
+        return f'Turmas {group_icon()}'
 
     def get_menu(self):
-        list_name = 'main_agenda'
+        list_name = 'main_agenda_grades'
         options = self.get_options()
         return treat_menu(options, list_name)
 
     def get_options(self):
         return [
             {
-                'id': 'grades',
-                'name': f'{group_icon()} Turmas'
+                'id': 'create_grade',
+                'name': f'{add_icon()} Cadastrar Turma'
             },
             {
-                'id': 'schedule',
-                'name': f'{calendar_icon()} Cronograma'
-            },
-            {
-                'id': 'tasks',
-                'name': f' {pin_icon()} Tarefas'
+                'id': 'show_grades',
+                'name': f'{open_book_icon()} Visualizar Turmas'
             }
         ]
