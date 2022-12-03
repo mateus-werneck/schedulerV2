@@ -21,7 +21,9 @@ class ScheduleHandler(AbstractHandlerRequest):
             ListGradeOptions().init()
         elif self.is_task_mode():
             return
-
+        
+        self.delete_message()
+        
     def is_grade_mode(self):
         return self.is_mode('main_agenda_list_grades')
 

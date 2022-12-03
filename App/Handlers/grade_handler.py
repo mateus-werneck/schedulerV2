@@ -19,7 +19,9 @@ class GradeHandler(AbstractHandlerRequest):
         ListGradesOptions().init()
 
     def answer_callback(self):
-        if self.is_edit_mode:
+        self.delete_message()
+        
+        if self.is_edit_mode():
             return
         elif self.is_delete_mode():
             self.delete_grade()

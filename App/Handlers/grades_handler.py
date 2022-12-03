@@ -1,5 +1,3 @@
-from App.Data.Helpers.message_helper import down_face, floppy_disk
-from App.Lib.Client.marina_api import MarinaAPI
 from App.Lib.Standard.abstract_handler_request import AbstractHandlerRequest
 from App.Queues.Grade.Create.create import Create
 from App.Queues.Grade.Listing.Grades.list_grades import ListGrades
@@ -14,6 +12,8 @@ class GradesHandler(AbstractHandlerRequest):
         return [self.answer_grade_options, self.answer_create_grade]
 
     def answer_grade_options(self):
+        self.delete_message()
+        
         if self.is_create_grade_mode():
             return self.reply_create_grade()
         if self.is_show_grades_mode():
