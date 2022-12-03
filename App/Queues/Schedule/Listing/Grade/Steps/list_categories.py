@@ -22,9 +22,9 @@ class ListCategories(ListGradeOptions):
 
     def send_menu(self):
         title = self.get_title()
-        schedule_menu = self.get_menu()
-        BotChat.instance().send_callback_query(title, schedule_menu)
-        return schedule_menu
+        menu = self.get_menu()
+        BotChat.instance().send_callback_query(title, menu)
+        return menu
 
     def get_title(self):
         return f'Turmas {group_icon()}'
