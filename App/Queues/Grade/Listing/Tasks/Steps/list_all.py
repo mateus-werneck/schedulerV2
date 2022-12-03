@@ -23,6 +23,7 @@ class ListAll(ListTasks):
 
         callback_function = TasksHandler.instance().execute
         BotClient.instance().add_callback_handler(menu, callback_function)
+        TasksHandler.instance().set_grade(self.get_grade())
 
     def send_menu(self):
         title = self.get_title()
@@ -45,4 +46,9 @@ class ListAll(ListTasks):
 
     def get_options(self):
         grade = self.get_grade()
-        return MarinaAPI.instance().list_grade_tasks(grade)
+        options = MarinaAPI.instance().list_grade_tasks(grade)
+        options.append({
+            'id': 'create_task',
+            'name': f' Cadastrar Tarefa'
+        })
+        return options

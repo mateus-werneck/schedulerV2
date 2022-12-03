@@ -9,6 +9,7 @@ def treat_task_to_message(task: dict, grade: str):
         task.get('deadLine'))
     hour = treat_datetime_to_string_hour(deadline)
     due_date = treat_datetime_to_pt_date(deadline)
+    
     return f'{alarm_clock()} Alerta de Tarefa.' \
         + f'\n<b>Turma: </b>{grade}' \
         + f'\n<b>Tarefa: </b>{task.get("name")}' \
