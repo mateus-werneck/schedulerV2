@@ -117,14 +117,18 @@ class AbstractHandlerRequest(ABC):
 
     def __handle_step(self):
         try:
-            self.step()
+            step_result = self.step()
             self.__save_step_log()
-            self.finish()
+            force_finish = self.__should_force_finish(step_result)
+            self.finish(force_finish)
         except Exception:
             message = f'[*] Failed to execute step: "{self.step.__name__}".'
             Logger.instance().error(message, format_exc(), context=self)
             self.finish(True)
-
+    
+    def __should_force_finish(self, step_result):
+        return not (step_result is None or step_result)
+    
     def __save_step_log(self):
         message = f'[*] Excecuted step: "{self.step.__name__}".'
         Logger.instance().info(message, context=self)
@@ -163,3 +167,5 @@ class AbstractHandlerRequest(ABC):
         data = self.get_text_data()
         return data is not None and data != '' and data
     
+    def get_callback_data(self):
+        return BotContext.instance().get_callback_data()

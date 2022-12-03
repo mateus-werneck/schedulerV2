@@ -17,8 +17,8 @@ class GradesHandler(AbstractHandlerRequest):
         if self.is_create_grade_mode():
             return self.reply_create_grade()
         if self.is_show_grades_mode():
-            ListGrades.init()
-            self.finish(True)
+            ListGrades().init()
+            return False
 
     def is_create_grade_mode(self):
         return self.is_mode('agenda_grades_create_grade')

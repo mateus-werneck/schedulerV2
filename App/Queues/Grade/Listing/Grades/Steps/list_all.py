@@ -1,4 +1,4 @@
-from App.Data.Helpers.inline_keyboard_helper import (append_back_button,
+from App.Data.Helpers.inline_keyboard_helper import (append_exit_button,
                                                      treat_menu)
 from App.Data.Helpers.message_helper import category_icon, down_face
 from App.Handlers.grade_handler import GradeHandler
@@ -40,7 +40,7 @@ class ListAll(ListGrades):
         if not options:
             return None
 
-        append_back_button(options)
+        append_exit_button(options)
         return treat_menu(options, 'grades')
 
     def get_options(self):
