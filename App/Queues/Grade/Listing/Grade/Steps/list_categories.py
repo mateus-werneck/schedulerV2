@@ -27,7 +27,7 @@ class ListCategories(ListGradesOptions):
         return schedule_menu
 
     def get_title(self):
-        return f'Escolha uma categoria {category_icon()}'
+        return f'Escolha uma opção {category_icon()}'
 
     def get_menu(self):
         options = self.get_options()
@@ -44,12 +44,12 @@ class ListCategories(ListGradesOptions):
                 'id': 'delete_grade',
                 'name': f'{delete_icon()} Deletar Turma'
             },
+             {
+                'id': 'list_tasks',
+                'name': f'{open_book_icon()} Listar Tarefas'
+            },
             {
                 'id': 'delete_tasks',
                 'name': f'{delete_icon()} Deletar Tarefas'
-            },
-            {
-                'id': 'list_tasks',
-                'name': f'{open_book_icon()} Listar Tarefas '
             }
         ]

@@ -69,6 +69,11 @@ class BotContext(AbstractSingleton):
         raise exception        
 
     def get_callback_data(self):
+        if not self.has_callback_data():
+            message = '[*] No callback data was found from telegram update.'
+            Logger.instance().warning(message, context=self)
+            return
+        
         update = self.get_update()
         return update.callback_query.data
     
