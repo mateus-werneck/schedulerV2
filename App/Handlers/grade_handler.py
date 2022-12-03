@@ -1,6 +1,7 @@
-from App.Lib.Bot.context import BotContext
 from App.Lib.Standard.abstract_handler_request import AbstractHandlerRequest
 from App.Queues.Grade.Delete.delete import Delete
+from App.Queues.Grade.Edit.edit import Edit
+from App.Queues.Grade.Listing.Tasks.list_tasks import ListTasks
 from App.Queues.Grade.Listing.GradeOptions.list_grades_options import \
     ListGradesOptions
 
@@ -11,7 +12,7 @@ class GradeHandler(AbstractHandlerRequest):
         return ''
 
     def get_steps(self) -> list:
-        return [self.list_options, self.answer_callback]
+        return [self.list_options, self.answer_callback, self.edit_grade]
 
     def list_options(self):
         data = self.get_callback_data()
@@ -22,23 +23,41 @@ class GradeHandler(AbstractHandlerRequest):
         self.delete_message()
         
         if self.is_edit_mode():
-            return
+            self.ask_new_grade_name()
         elif self.is_delete_mode():
-            self.delete_grade()
+            return self.delete_grade()
         elif self.is_list_tasks_mode():
-            return
+            return self.list_tasks()
     
     def is_edit_mode(self):
         return self.is_mode('main_grade_edit_grade')
     
+    def ask_new_grade_name(self):
+        self.send_message('Por favor informe um nome novo para a turma. \
+                \nExemplo: <b>Advanced - S/Q - 17:00</b>')
+        
     def is_delete_mode(self):
         return self.is_mode('main_grade_delete_grade')
     
-    def is_list_tasks_mode(self):
-        return self.is_mode('main_grade_list_tasks')
-
     def delete_grade(self):
         queue = Delete()
+        queue.set_grade(self.grade)
+        queue.init()
+        self.grade = None
+        return False
+    
+    def is_list_tasks_mode(self):
+        return self.is_mode('main_grade_list_tasks')
+    
+    def list_tasks(self):
+        queue = ListTasks()
+        queue.set_grade(self.grade)
+        queue.init()
+        self.grade = None
+        return False
+
+    def edit_grade(self):
+        queue = Edit()
         queue.set_grade(self.grade)
         queue.init()
         self.grade = None
