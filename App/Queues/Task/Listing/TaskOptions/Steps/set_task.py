@@ -7,5 +7,6 @@ class SetTask(ListTaskOptions):
 
     def handle(self) -> bool:
         task = BotChat.instance().extract_callback_data()
+        task = task.replace('main_tasks', '')
         self.set_task(task)
         return super().handle()
