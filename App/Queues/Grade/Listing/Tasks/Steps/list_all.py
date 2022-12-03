@@ -1,7 +1,7 @@
 from App.Data.Helpers.inline_keyboard_helper import (append_exit_button,
                                                      treat_menu)
 from App.Data.Helpers.message_helper import category_icon, down_face
-from App.Handlers.grade_handler import GradeHandler
+from App.Handlers.tasks_handler import TasksHandler
 from App.Lib.Bot.chat import BotChat
 from App.Lib.Bot.client import BotClient
 from App.Lib.Client.marina_api import MarinaAPI
@@ -21,7 +21,7 @@ class ListAll(ListTasks):
             self.send_message(f'{down_face()} Nenhuma tarefa foi encontrada.')
             return
 
-        callback_function = GradeHandler.instance().execute
+        callback_function = TasksHandler.instance().execute
         BotClient.instance().add_callback_handler(menu, callback_function)
 
     def send_menu(self):
@@ -41,7 +41,7 @@ class ListAll(ListTasks):
             return None
 
         append_exit_button(options)
-        return treat_menu(options, 'grade_tasks')
+        return treat_menu(options, 'main_tasks')
 
     def get_options(self):
         grade = self.get_grade()

@@ -1,10 +1,10 @@
 
-from App.Data.Helpers.message_helper import delete_icon, down_face
+from App.Data.Helpers.message_helper import edit_icon, down_face
 from App.Lib.Client.marina_api import MarinaAPI
 from App.Queues.Grade.Edit.edit import Edit
 
 
-class DeleteGrade(Edit):
+class EditGrade(Edit):
 
     def handle(self) -> bool:
         updated = self.edit_grade()
@@ -18,7 +18,7 @@ class DeleteGrade(Edit):
 
     def notify(self, grade: dict):
         if grade.get('id'):
-            message = f'{delete_icon()} Turma alterada com sucesso.'
+            message = f'{edit_icon()} Turma alterada com sucesso.'
         else:
             message = f'{down_face()} Não consegui alterar a turma para você.'
 

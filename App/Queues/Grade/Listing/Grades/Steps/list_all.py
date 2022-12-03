@@ -18,7 +18,7 @@ class ListAll(ListGrades):
         menu = self.send_menu()
 
         if menu is None:
-            self.send_message(f'{down_face()} Nenhum turma foi encontrada.')
+            self.send_message(f'{down_face()} Nenhuma turma foi encontrada.')
             return
 
         callback_function = GradeHandler.instance().execute
