@@ -1,4 +1,4 @@
-from App.Data.Helpers.inline_keyboard_helper import (append_back_button,
+from App.Data.Helpers.inline_keyboard_helper import (append_exit_button,
                                                      treat_menu)
 from App.Data.Helpers.message_helper import (category_icon, delete_icon,
                                              edit_icon, open_book_icon)
@@ -31,7 +31,7 @@ class ListCategories(ListGradesOptions):
 
     def get_menu(self):
         options = self.get_options()
-        append_back_button(options)
+        append_exit_button(options)
         return treat_menu(options, 'main_grade')
 
     def get_options(self):
@@ -44,12 +44,8 @@ class ListCategories(ListGradesOptions):
                 'id': 'delete_grade',
                 'name': f'{delete_icon()} Deletar Turma'
             },
-             {
+            {
                 'id': 'list_tasks',
                 'name': f'{open_book_icon()} Listar Tarefas'
-            },
-            {
-                'id': 'delete_tasks',
-                'name': f'{delete_icon()} Deletar Tarefas'
             }
         ]

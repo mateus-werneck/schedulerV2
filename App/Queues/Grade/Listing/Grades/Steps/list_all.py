@@ -41,7 +41,7 @@ class ListAll(ListGrades):
             return None
 
         append_exit_button(options)
-        return treat_menu(options, 'grades')
+        return treat_menu(options, 'grade')
 
     def get_options(self):
         return MarinaAPI.instance().list_grades()

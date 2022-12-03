@@ -1,5 +1,6 @@
 
 from App.Lib.Bot.context import BotContext
+from App.Lib.Log.logger import Logger
 from App.Lib.Standard.abstract_singleton import AbstractSingleton
 
 
@@ -26,9 +27,12 @@ class BotChat(AbstractSingleton):
         telegram_bot = self.get_bot_context().get_bot()
         message_id = self.get_bot_context().get_message_id()
         chat_id = self.get_bot_context().get_chat_id()
+        
         try:
             telegram_bot.delete_message(chat_id, message_id)
-        except Exception:
+        except Exception as e:
+            message = f'[*] Failed to delete message: {str(message_id)}'
+            Logger.instance().critical(message, e, context=self)
             return
 
     def extract_callback_data(self):
@@ -38,5 +42,8 @@ class BotChat(AbstractSingleton):
             return
         
         self.delete_message()
-        return bot_context.get_callback_data()
+        data = bot_context.get_callback_data()
+        message = f'[*] Extracting Callback Data: {str(data)}'
+        Logger.instance().info(message, context=self)
+        return data
         
