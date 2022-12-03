@@ -2,6 +2,7 @@ from App.Data.Helpers.inline_keyboard_helper import (append_back_button,
                                                      treat_menu)
 from App.Data.Helpers.message_helper import (category_icon, delete_icon,
                                              edit_icon, open_book_icon)
+from App.Handlers.grade_handler import GradeHandler
 from App.Lib.Bot.chat import BotChat
 from App.Lib.Bot.client import BotClient
 from App.Queues.Grade.Listing.GradeOptions.list_grades_options import \
@@ -16,7 +17,7 @@ class ListCategories(ListGradesOptions):
 
     def set_callback(self):
         menu = self.send_menu()
-        callback_function = None
+        callback_function = GradeHandler.instance().execute
         BotClient.instance().add_callback_handler(menu, callback_function)
 
     def send_menu(self):
