@@ -13,6 +13,9 @@ class MarinaAPI(Connection):
             return []
         return grades
 
+    def find_grade(self, id: str):
+        return self.get('grades', {'id': id})
+    
     def create_grade(self, name: str):
         return self.post('grades', {'name': name})
 
@@ -28,6 +31,9 @@ class MarinaAPI(Connection):
             return []
         return [task for task in grade['schedules'][0]['tasks']]
         
+    def create_schedule(self, data: dict):
+        return self.post('schedules', data)
+    
     def create_task(self, data: dict):
         return self.post('tasks', data)
 

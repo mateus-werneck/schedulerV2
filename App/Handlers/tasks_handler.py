@@ -50,4 +50,6 @@ class TasksHandler(AbstractHandlerRequest):
         return False
     
     def create_task(self):
-        Create().init()
+        queue = Create()
+        queue.set_grade(self.get_grade())
+        queue.init()
