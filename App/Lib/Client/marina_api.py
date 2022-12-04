@@ -14,7 +14,7 @@ class MarinaAPI(Connection):
         return grades
 
     def find_grade(self, id: str):
-        return self.get('grades', {'id': id})
+        return self.get(f'grades/id/{id}')
     
     def create_grade(self, name: str):
         return self.post('grades', {'name': name})

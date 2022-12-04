@@ -28,6 +28,9 @@ class WeekDay:
         utc_day = self.__convert_utc_day(day)
         return self.__get_date_from_utc_day(utc_day)
     
+    def get_week_day_from_date(self, date: datetime):
+        return self.__get_utc_day_from_datetime(date)
+    
     def treat_week_day(self, day: str):
         day = day.lower().replace(' ', '', 1)
         day = day.split('-')[0]

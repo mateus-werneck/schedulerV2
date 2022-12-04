@@ -21,8 +21,12 @@ class AbstractHandler(ABC):
         self.handle()
         return self
 
-    def handle(self) -> bool:
+    def handle(self, force_finish: bool = False) -> bool:
+        if force_finish:
+            return self.force_finish()
+
         self.set_next()
+
         if not self.has_finished():
             self.__next_handler.handle()
         return True
@@ -80,13 +84,17 @@ class AbstractHandler(ABC):
 
     def get_logger(self):
         return Logger.instance()
-    
+
     def send_message(self, message: str):
         BotChat.instance().send_text(message)
-        
+
     def get_text_data(self):
         return BotContext.instance().get_text_data()
-    
+
     def has_valid_text_data(self):
         data = self.get_text_data()
         return data is not None and data != '' and data
+
+    def force_finish(self):
+        self.__next_handler is None
+        return True

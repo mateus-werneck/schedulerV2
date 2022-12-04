@@ -34,7 +34,7 @@ def treat_datetime_to_iso_string(date: datetime):
     return datetime.strftime(date, datetime_format)
 
 def treat_datetime_to_pt_date(date: datetime):
-    return date.strftime(pt_br)
+    return datetime.strftime(date, pt_br)
 
 def get_datetime_minutes_before(date: datetime, minutes: float):
     return date - timedelta(minutes=minutes)

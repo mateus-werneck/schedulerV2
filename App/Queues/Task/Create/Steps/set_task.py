@@ -1,23 +1,22 @@
 
-from App.Data.Helpers.message_helper import down_face, floppy_disk
-from App.Lib.Client.marina_api import MarinaAPI
 from App.Queues.Task.Create.create import Create
 from App.Data.Helpers.task_helper import treat_string_to_task
 
 
-class SaveTask(Create):
+class SetTask(Create):
 
     def handle(self) -> bool:
-        self.save()
-        return super().handle()
+        result = self.save()
+        return super().handle(not result)
 
     def save(self):
         if not self.has_valid_text_data():
             self.send_message('Por favor informe uma tarefa válida.')
-            return
+            return False
         
         task = self.get_task_data()
         self.set_task(task)
+        return True
 
     def get_task_data(self):
         task_data = self.get_text_data()
