@@ -29,7 +29,7 @@ class WeekDay:
         return self.__get_date_from_utc_day(utc_day)
     
     def treat_week_day(self, day: str):
-        day = day.lower()
+        day = day.lower().replace(' ', '', 1)
         day = day.split('-')[0]
         day = day.split(' ')[0]
         return day

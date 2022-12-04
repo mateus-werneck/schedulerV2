@@ -12,14 +12,12 @@ def treat_string_to_task(new_task: str):
     return {
         'name': task_props[0],
         'description': task_props[1],
-        'deadline': get_deadline_from_message(task_props[2], task_props[3])
+        'deadLine': get_deadline_from_message(task_props[2], task_props[3])
     }
-
 
 def append_task_description(task_props: list):
     if len(task_props) < 4:
         task_props.insert(1, task_props[0])
-
 
 def get_deadline_from_message(date: str, hour: str):
     date_to_treat = get_deadline_date(date)
