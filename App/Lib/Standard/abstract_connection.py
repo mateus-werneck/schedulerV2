@@ -79,6 +79,7 @@ class Connection(ABC):
         return self.__treat_response_data(response)
 
     def __save_log(self, message: str):
+        message = f'[*] {message}'
         Logger.instance().info(message, context=self)
 
     def __save_request_log(self, request: Request):
