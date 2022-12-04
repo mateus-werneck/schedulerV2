@@ -15,8 +15,9 @@ def is_valid_pt_date(date: str):
 
 def treat_iso_string_to_datetime(iso_string: str):
     time_obj = strptime(iso_string, iso_format)
+    
     return datetime(
-        year=(time_obj.tm_year),
+        year=time_obj.tm_year,
         month=time_obj.tm_mon,
         day=time_obj.tm_mday,
         hour=time_obj.tm_hour,

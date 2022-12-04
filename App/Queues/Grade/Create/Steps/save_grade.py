@@ -12,7 +12,7 @@ class SaveGrade(Create):
 
     def save(self):
         if not self.has_valid_text_data():
-            self.send_message('Por favor informe um turma válida.')
+            self.send_message('Por favor informe uma turma válida.')
             return
         
         new_grade = self.create_grade()

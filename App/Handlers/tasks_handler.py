@@ -2,6 +2,7 @@ from App.Lib.Standard.abstract_handler_request import AbstractHandlerRequest
 from App.Queues.Task.Listing.TaskOptions.list_task_options \
     import ListTaskOptions
 
+from App.Queues.Task.Create.create import Create
 
 class TasksHandler(AbstractHandlerRequest):
     _grade = None
@@ -49,4 +50,4 @@ class TasksHandler(AbstractHandlerRequest):
         return False
     
     def create_task(self):
-        pass
+        Create().init()
