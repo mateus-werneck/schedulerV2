@@ -25,37 +25,39 @@ class WeekDay:
 
     def get_date_from_week_day(self, day: str):
         day = self.treat_week_day(day)
-        utc_day = self.convert_utc_day(day)
-        return self.get_date_from_utc_day(utc_day)
+        utc_day = self.__convert_utc_day(day)
+        return self.__get_date_from_utc_day(utc_day)
     
     def treat_week_day(self, day: str):
-        day = day.lower().replace(' ', '')
+        day = day.lower()
         day = day.split('-')[0]
+        day = day.split(' ')[0]
         return day
 
-    def convert_utc_day(self, day: str):
-        for utc_day, day_list in self.week_days.items():
+    def __convert_utc_day(self, day: str):
+        week_days = self.get_week_days()
+        for utc_day, day_list in week_days.items():
             if day in day_list:
                 return utc_day
         raise WeekDayUtcNotFoundException()
 
-    def get_date_from_utc_day(self, utc_day: str, today: datetime = None):
+    def __get_date_from_utc_day(self, utc_day: str, today: datetime = None):
         if today is None:
             today = datetime.today()
         
-        current_utc_day = self.get_utc_day_from_datetime(today)
+        current_utc_day = self.__get_utc_day_from_datetime(today)
 
         if current_utc_day == utc_day.lower():
             self.current_recursion = 0
             return today.replace(hour=0, minute=0, second=0, microsecond=0)
 
-        self.check_recursion_limit()
-        return self.get_date_from_utc_day(utc_day, today + timedelta(days=1))
+        self.__check_recursion_limit()
+        return self.__get_date_from_utc_day(utc_day, today + timedelta(days=1))
 
-    def get_utc_day_from_datetime(self, date: datetime):
+    def __get_utc_day_from_datetime(self, date: datetime):
         return date.strftime('%A').lower()
     
-    def check_recursion_limit(self):
+    def __check_recursion_limit(self):
         self.current_recursion += self.current_recursion
         if self.current_recursion > self.recursion_limit:
             raise WeekDayExceededException()
