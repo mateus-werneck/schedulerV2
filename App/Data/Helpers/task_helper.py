@@ -1,18 +1,35 @@
 from App.Data.Helpers.message_helper import alarm_clock
 from App.Lib.Treat.date_treat import (treat_datetime_to_pt_date,
-                                      treat_iso_string_to_datetime)
-from App.Lib.Treat.time_treat import treat_datetime_to_string_hour
+                                      treat_iso_string_to_datetime,
+                                      add_time_to_date,
+                                      treat_datetime_to_iso_string,
+                                      is_valid_pt_date,
+                                      treat_date_string_to_datetime)
+from App.Lib.Treat.time_treat import (treat_datetime_to_string_hour,
+                                      treat_string_hour_to_time)
 
 
-def treat_task_to_message(task: dict, grade: str):
-    deadline = treat_iso_string_to_datetime(
-        task.get('deadLine'))
-    hour = treat_datetime_to_string_hour(deadline)
-    due_date = treat_datetime_to_pt_date(deadline)
+def treat_string_to_task(new_task: str):
+    task_props = new_task.split(',')
+    if len(task_props) < 4:
+        task_props.insert(1, task_props[0])
     
-    return f'{alarm_clock()} Alerta de Tarefa.' \
-        + f'\n<b>Turma: </b>{grade}' \
-        + f'\n<b>Tarefa: </b>{task.get("name")}' \
-        + f'\n<b>Descrição: </b>{task.get("description")}' \
-        + f'\n<b>Data Limite: </b>{due_date}' \
-        + f'\n<b>Horário de entrega: </b>{hour}'
+    return {
+        'name': task_props[0],
+        'description': task_props[1],
+        'deadline': get_deadline_from_message(task_props[2], task_props[3])
+    }
+
+
+def get_deadline_from_message(date: str, hour: str):
+    return treat_datetime_to_iso_string(
+        add_time_to_date(
+            get_deadline_date(date),
+            treat_string_hour_to_time(hour)
+        ))
+
+
+def get_deadline_date(day: str):
+    if is_valid_pt_date(day):
+        return treat_date_string_to_datetime(day)
+    # return WeekDay.get_date_from_week_day(day)
