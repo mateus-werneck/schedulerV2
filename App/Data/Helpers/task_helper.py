@@ -22,11 +22,11 @@ def treat_string_to_task(new_task: str):
 
 
 def get_deadline_from_message(date: str, hour: str):
-    return treat_datetime_to_iso_string(
-        add_time_to_date(
-            get_deadline_date(date),
-            treat_string_hour_to_time(hour)
-        ))
+    date_to_treat = get_deadline_date(date)
+    hour_deadline = treat_string_hour_to_time(hour)
+    datetime_deadline = add_time_to_date(date_to_treat, hour_deadline)
+    
+    return treat_datetime_to_iso_string(datetime_deadline)
 
 
 def get_deadline_date(day: str):
