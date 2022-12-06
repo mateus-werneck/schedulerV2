@@ -14,20 +14,21 @@ class CheckSchedule(Create):
     current_grade = {}
 
     def handle(self) -> bool:
+        self.set_current_grade()
         self.set_task_schedule_id()
         return super().handle()
+
+    def set_current_grade(self):
+        self.current_grade = MarinaAPI.instance().find_grade(self.get_grade())
 
     def set_task_schedule_id(self):
         task = self.get_task()
         task['scheduleId'] = self.get_schedule_id()
+        self.set_task(task)
 
     def get_schedule_id(self):
-        self.set_current_grade()
         schedule = self.find_or_create_schedule()
         return schedule.get('id')
-    
-    def set_current_grade(self):
-        self.current_grade = MarinaAPI.instance().find_grade(self.get_grade())
 
     def find_or_create_schedule(self):
         if self.has_active_schedule():
@@ -37,7 +38,7 @@ class CheckSchedule(Create):
     def has_active_schedule(self):
         if not self.current_grade.get('schedules'):
             return False
-        
+
         self.schedule_dates = self.get_schedule_dates()
         return self.get_deadline() in self.schedule_dates
 
@@ -46,7 +47,7 @@ class CheckSchedule(Create):
                  for schedule in self.current_grade.get('schedules')]
         dates_map = map(lambda date: treat_iso_string_to_datetime(date), dates)
         return list(dates_map)
-    
+
     def get_deadline(self):
         task = self.get_task()
         deadline = treat_date_string_to_datetime(task.get('deadLine'))

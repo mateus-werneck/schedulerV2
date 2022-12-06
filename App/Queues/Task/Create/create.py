@@ -5,27 +5,25 @@ class Create(AbstractHandler):
     _grade = None
     _task = None
     
-    @classmethod
-    def set_grade(cls, grade: str):
-        cls._grade = grade
+    @staticmethod
+    def set_grade(grade: str):
+        Create._grade = grade
      
-    @classmethod   
-    def get_grade(cls):
-        return cls._grade
+    def get_grade(self):
+        return self._grade
     
-    @classmethod
-    def set_task(cls, task: dict):
-        cls._task = task
+    @staticmethod
+    def set_task(task: dict):
+        Create._task = task
      
-    @classmethod   
-    def get_task(cls):
-        return cls._task
+    def get_task(self):
+        return self._task
     
     def get_steps(self) -> list:
         return [
-            #'set_task',
+            'set_task',
             'check_schedule',
-            # 'save_task'
+            'save_task'
         ]
     
     def get_namespace(self) -> str:

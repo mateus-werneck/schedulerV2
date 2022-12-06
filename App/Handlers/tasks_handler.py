@@ -54,12 +54,6 @@ class TasksHandler(AbstractHandlerRequest):
             self.send_message('Por favor informe uma tarefa válida.')
             return False
         
-        task = self.get_task_data()
         queue = Create()
         queue.set_grade(self.get_grade())
-        queue.set_task(task)
         queue.init()
-
-    def get_task_data(self):
-        task_data = self.get_text_data()
-        return treat_string_to_task(task_data)
