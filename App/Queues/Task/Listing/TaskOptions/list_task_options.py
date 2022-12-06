@@ -14,7 +14,7 @@ class ListTaskOptions(AbstractHandler):
         
     def get_steps(self) -> list:
         return [
-            'set_task'
+            'set_task',
             'list_categories'
         ]
     
