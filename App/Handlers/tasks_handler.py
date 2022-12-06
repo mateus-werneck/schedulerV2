@@ -1,9 +1,5 @@
 from App.Lib.Standard.abstract_handler_request import AbstractHandlerRequest
-from App.Queues.Task.Listing.TaskOptions.list_task_options \
-    import ListTaskOptions
-
-from App.Queues.Task.Create.create import Create
-from App.Data.Helpers.task_helper import treat_string_to_task
+from App.Queues.Standard.factory_queue import FactoryQueue
 class TasksHandler(AbstractHandlerRequest):
     _grade = None
     
@@ -46,7 +42,8 @@ class TasksHandler(AbstractHandlerRequest):
                 <b>22/10/2022</b>, <b>15:22</b>'
     
     def start_task_mode(self):
-        ListTaskOptions().init()
+        queue = 'Task.Listing.TaskOptions.list_task_options'
+        FactoryQueue.create(queue).init()
         return False
     
     def create_task(self):
@@ -54,6 +51,6 @@ class TasksHandler(AbstractHandlerRequest):
             self.send_message('Por favor informe uma tarefa válida.')
             return False
         
-        queue = Create()
+        queue = FactoryQueue.create('Task.Create.create')
         queue.set_grade(self.get_grade())
         queue.init()

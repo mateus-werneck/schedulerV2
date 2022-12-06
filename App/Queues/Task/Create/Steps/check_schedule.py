@@ -3,10 +3,8 @@ from App.Lib.Client.marina_api import MarinaAPI
 from App.Lib.Treat.date_treat import (treat_string_to_datetime,
                                       treat_datetime_to_string,
                                       treat_node_string)
-from App.Queues.Schedule.Create.create import Create as CreateSchedule
 from App.Queues.Task.Create.create import Create
-
-
+from App.Queues.Standard.factory_queue import FactoryQueue
 class CheckSchedule(Create):
     schedule_dates = []
     current_grade = {}
@@ -58,7 +56,7 @@ class CheckSchedule(Create):
         grade = self.get_grade()
         deadline = treat_datetime_to_string(self.get_deadline())
 
-        queue = CreateSchedule()
+        queue = FactoryQueue.create('Schedule.Create.create')
         queue.set_grade(grade)
         queue.set_deadline(deadline)
         queue.init()

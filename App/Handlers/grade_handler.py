@@ -1,9 +1,5 @@
 from App.Lib.Standard.abstract_handler_request import AbstractHandlerRequest
-from App.Queues.Grade.Delete.delete import Delete
-from App.Queues.Grade.Edit.edit import Edit
-from App.Queues.Grade.Listing.Tasks.list_tasks import ListTasks
-from App.Queues.Grade.Listing.GradeOptions.list_grades_options import \
-    ListGradesOptions
+from App.Queues.Standard.factory_queue import FactoryQueue
 
 
 class GradeHandler(AbstractHandlerRequest):
@@ -17,7 +13,8 @@ class GradeHandler(AbstractHandlerRequest):
     def list_options(self):
         data = self.get_callback_data()
         self.grade = data.replace('grade_', '')
-        ListGradesOptions().init()
+        queue = 'Grade.Listing.GradeOptions.list_grades_options'
+        FactoryQueue.create(queue).init()
 
     def answer_callback(self):
         self.delete_message()
@@ -40,7 +37,7 @@ class GradeHandler(AbstractHandlerRequest):
         return self.is_mode('main_grade_delete_grade')
     
     def delete_grade(self):
-        queue = Delete()
+        queue = FactoryQueue.create('Grade.Delete.delete')
         queue.set_grade(self.grade)
         queue.init()
         self.grade = None
@@ -50,14 +47,14 @@ class GradeHandler(AbstractHandlerRequest):
         return self.is_mode('main_grade_list_tasks')
     
     def list_tasks(self):
-        queue = ListTasks()
+        queue = FactoryQueue.create('Grade.Listing.Tasks.list_tasks')
         queue.set_grade(self.grade)
         queue.init()
         self.grade = None
         return False
 
     def edit_grade(self):
-        queue = Edit()
+        queue = FactoryQueue.create('Grade.Edit.edit')
         queue.set_grade(self.grade)
         queue.init()
         self.grade = None

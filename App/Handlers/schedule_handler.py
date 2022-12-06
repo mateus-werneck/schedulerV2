@@ -1,8 +1,5 @@
 from App.Lib.Standard.abstract_handler_request import AbstractHandlerRequest
-from App.Queues.Schedule.Listing.Grade.list_grade_options import \
-    ListGradeOptions
-from App.Queues.Schedule.Listing.Schedule.list_schedule_options import \
-    ListScheduleOptions
+from App.Queues.Standard.factory_queue import FactoryQueue
 
 
 class ScheduleHandler(AbstractHandlerRequest):
@@ -14,16 +11,18 @@ class ScheduleHandler(AbstractHandlerRequest):
         return [self.list_options, self.answer_list_options]
 
     def list_options(self):
-        ListScheduleOptions().init()
+        queue = 'Schedule.Listing.Schedule.list_schedule_options'
+        FactoryQueue.create(queue).init()
 
     def answer_list_options(self):
         if self.is_grade_mode():
-            ListGradeOptions().init()
+            queue = 'Schedule.Listing.Grade.list_grade_options'
+            FactoryQueue.create(queue).init()
         elif self.is_task_mode():
             return
-        
+
         self.delete_message()
-        
+
     def is_grade_mode(self):
         return self.is_mode('main_agenda_list_grades')
 

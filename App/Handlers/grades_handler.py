@@ -1,7 +1,5 @@
 from App.Lib.Standard.abstract_handler_request import AbstractHandlerRequest
-from App.Queues.Grade.Create.create import Create
-from App.Queues.Grade.Listing.Grades.list_grades import ListGrades
-
+from App.Queues.Standard.factory_queue import FactoryQueue
 
 class GradesHandler(AbstractHandlerRequest):
 
@@ -17,7 +15,7 @@ class GradesHandler(AbstractHandlerRequest):
         if self.is_create_grade_mode():
             return self.reply_create_grade()
         if self.is_show_grades_mode():
-            ListGrades().init()
+            FactoryQueue.create('Grade.Listing.Grades.list_grades').init()
             return False
 
     def is_create_grade_mode(self):
@@ -32,4 +30,4 @@ class GradesHandler(AbstractHandlerRequest):
         return self.is_mode('agenda_grades_show_grades')
 
     def answer_create_grade(self):        
-        Create().init()
+        FactoryQueue.create('Grade.Create.create').init()
