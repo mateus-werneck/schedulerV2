@@ -1,8 +1,8 @@
 
 from App.Lib.Client.marina_api import MarinaAPI
-from App.Lib.Treat.date_treat import (treat_date_string_to_datetime,
-                                      treat_datetime_to_iso_string,
-                                      treat_iso_string_to_datetime)
+from App.Lib.Treat.date_treat import (treat_string_to_datetime,
+                                      treat_datetime_to_string,
+                                      treat_node_string)
 from App.Queues.Schedule.Create.create import Create as CreateSchedule
 from App.Queues.Task.Create.create import Create
 
@@ -40,14 +40,13 @@ class CheckSchedule(Create):
         return self.get_deadline() in self.schedule_dates
 
     def get_schedule_dates(self):
-        dates = [schedule.get('scheduleDate')
-                 for schedule in self.current_grade.get('schedules')]
-        dates_map = map(lambda date: treat_iso_string_to_datetime(date), dates)
-        return list(dates_map)
+        schedule_dates = [schedule.get('scheduleDate')
+                          for schedule in self.current_grade.get('schedules')]
+        return [treat_node_string(date) for date in schedule_dates]
 
     def get_deadline(self):
         task = self.get_task()
-        deadline = treat_date_string_to_datetime(task.get('deadLine'))
+        deadline = treat_string_to_datetime(task.get('deadLine'))
         return deadline.replace(hour=0, minute=0)
 
     def find_schedule(self):
@@ -57,7 +56,7 @@ class CheckSchedule(Create):
 
     def create_schedule(self):
         grade = self.get_grade()
-        deadline = treat_datetime_to_iso_string(self.get_deadline())
+        deadline = treat_datetime_to_string(self.get_deadline())
 
         queue = CreateSchedule()
         queue.set_grade(grade)

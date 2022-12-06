@@ -2,7 +2,7 @@
 from App.Lib.Client.marina_api import MarinaAPI
 from App.Queues.Schedule.Create.create import Create
 from App.Lib.Treat.week_day_treat import WeekDay
-from App.Lib.Treat.date_treat import treat_date_string_to_datetime
+from App.Lib.Treat.date_treat import treat_string_to_datetime
 
 
 class SaveSchedule(Create):
@@ -29,5 +29,5 @@ class SaveSchedule(Create):
         }
 
     def get_schedule_day(self, deadline: str):
-        deadline_datetime = treat_date_string_to_datetime(deadline)
+        deadline_datetime = treat_string_to_datetime(deadline)
         return WeekDay().get_week_day_from_date(deadline_datetime)

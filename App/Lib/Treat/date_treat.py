@@ -3,19 +3,21 @@ from time import strptime
 
 from pytz import timezone
 
-iso_format = '%Y-%m-%dT%H:%M:%S.%fZ'
-datetime_format = '%Y-%m-%d %H:%M:%S'
-pt_br = '%d/%m/%Y'
+node_format = '%Y-%m-%dT%H:%M:%S.%fZ'
+iso_format = '%Y-%m-%d %H:%M:%S'
+pt_br_format = '%d/%m/%Y'
+
 
 def is_valid_pt_date(date: str):
     try:
-        return strptime(date, pt_br) is not None
+        return strptime(date, pt_br_format) is not None
     except Exception:
         return False
 
-def treat_iso_string_to_datetime(iso_string: str):
-    time_obj = strptime(iso_string, iso_format)
-    
+
+def treat_node_string(node_date: str):
+    time_obj = strptime(node_date, node_format)
+
     return datetime(
         year=time_obj.tm_year,
         month=time_obj.tm_mon,
@@ -27,22 +29,28 @@ def treat_iso_string_to_datetime(iso_string: str):
         tzinfo=timezone('America/Sao_Paulo')
     )
 
-def treat_date_string_to_datetime(date: str):
-    return datetime.strptime(date, datetime_format)
 
-def treat_datetime_to_iso_string(date: datetime):
-    return datetime.strftime(date, datetime_format)
+def treat_string_to_datetime(date: str):
+    local_zone = timezone('America/Sao_Paulo')
+    return datetime.strptime(date, iso_format)\
+        .replace(tzinfo=local_zone)
+
+
+def treat_datetime_to_string(date: datetime):
+    return datetime.strftime(date, iso_format)
+
 
 def treat_datetime_to_pt_date(date: datetime):
-    return datetime.strftime(date, pt_br)
+    return datetime.strftime(date, pt_br_format)
 
-def get_datetime_minutes_before(date: datetime, minutes: float):
+
+def get_minutes_before(date: datetime, minutes: float):
     return date - timedelta(minutes=minutes)
 
-def get_datetime_minutes_after(date: datetime, minutes: float):
+
+def get_minutes_after(date: datetime, minutes: float):
     return date + timedelta(minutes=minutes)
+
 
 def add_time_to_date(date: datetime, time_obj: time):
     return date + timedelta(hours=time_obj.hour, minutes=time_obj.minute)
-
-   

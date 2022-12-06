@@ -1,7 +1,7 @@
 from App.Lib.Treat.date_treat import (add_time_to_date,
-                                      treat_datetime_to_iso_string,
+                                      treat_datetime_to_string,
                                       is_valid_pt_date,
-                                      treat_date_string_to_datetime)
+                                      treat_string_to_datetime)
 from App.Lib.Treat.time_treat import treat_string_hour_to_time
 from App.Lib.Treat.week_day_treat import WeekDay
 
@@ -23,10 +23,10 @@ def get_deadline_from_message(date: str, hour: str):
     date_to_treat = get_deadline_date(date)
     hour_deadline = treat_string_hour_to_time(hour)
     datetime_deadline = add_time_to_date(date_to_treat, hour_deadline)
-    return treat_datetime_to_iso_string(datetime_deadline)
+    return treat_datetime_to_string(datetime_deadline)
 
 
 def get_deadline_date(day: str):
     if is_valid_pt_date(day):
-        return treat_date_string_to_datetime(day)
+        return treat_string_to_datetime(day)
     return WeekDay().get_date_from_week_day(day)
