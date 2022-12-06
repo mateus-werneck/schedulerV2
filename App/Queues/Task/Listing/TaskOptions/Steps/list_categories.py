@@ -1,4 +1,4 @@
-from App.Data.Helpers.inline_keyboard_helper import (append_back_button,
+from App.Data.Helpers.inline_keyboard_helper import (append_exit_button,
                                                      treat_menu)
 from App.Data.Helpers.message_helper import (category_icon,
                                              cross_mark_icon, edit_icon)
@@ -32,7 +32,7 @@ class ListCategories(ListTaskOptions):
 
     def get_menu(self):
         options = self.get_options()
-        append_back_button(options)
+        append_exit_button(options)
         return treat_menu(options, 'main_task')
 
     def get_options(self):
