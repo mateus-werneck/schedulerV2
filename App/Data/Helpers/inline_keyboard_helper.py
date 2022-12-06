@@ -28,10 +28,19 @@ def append_back_button(keyboard: list):
         }
     )
 
+
 def append_exit_button(keyboard: list):
     keyboard.append(
         {
             'id': f'exit',
             'name': f'{delete_icon()} Sair'
+        }
+    )
+
+def append_custom_button(keyboard: list, id: str, name: str):
+    keyboard.append(
+        {
+            'id': id,
+            'name': name
         }
     )

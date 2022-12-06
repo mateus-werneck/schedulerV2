@@ -1,6 +1,6 @@
 from App.Data.Helpers.inline_keyboard_helper import (append_exit_button,
-                                                     treat_menu)
-from App.Data.Helpers.message_helper import category_icon, down_face
+                                                     treat_menu, append_custom_button)
+from App.Data.Helpers.message_helper import category_icon, down_face, add_icon
 from App.Handlers.tasks_handler import TasksHandler
 from App.Lib.Bot.chat import BotChat
 from App.Lib.Bot.client import BotClient
@@ -47,8 +47,6 @@ class ListAll(ListTasks):
     def get_options(self):
         grade = self.get_grade()
         options = MarinaAPI.instance().list_grade_tasks(grade)
-        options.append({
-            'id': 'create_task',
-            'name': f' Cadastrar Tarefa'
-        })
+        append_custom_button(options, 'create_task',
+                             f' {add_icon()} Cadastrar Tarefa')
         return options
