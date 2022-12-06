@@ -66,6 +66,9 @@ def notebook_icon():
 def delete_icon():
     return '\U0000274C'
 
+def cross_mark_icon():
+    return '\U0000274E'
+
 
 def add_icon():
     return '\U00002795'

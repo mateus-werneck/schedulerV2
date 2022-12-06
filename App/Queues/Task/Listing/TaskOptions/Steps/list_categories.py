@@ -1,7 +1,7 @@
 from App.Data.Helpers.inline_keyboard_helper import (append_back_button,
                                                      treat_menu)
 from App.Data.Helpers.message_helper import (category_icon,
-                                             delete_icon, edit_icon)
+                                             cross_mark_icon, edit_icon)
 from App.Handlers.task_handler import TaskHandler
 from App.Lib.Bot.chat import BotChat
 from App.Lib.Bot.client import BotClient
@@ -43,6 +43,6 @@ class ListCategories(ListTaskOptions):
             },
             {
                 'id': 'delete_task',
-                'name': f'{delete_icon()} Deletar Tarefa'
+                'name': f'{cross_mark_icon()} Deletar Tarefa'
             }
         ]

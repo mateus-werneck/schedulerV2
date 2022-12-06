@@ -32,7 +32,7 @@ class ListCategories(ListGradeOptions):
     def get_menu(self):
         options = self.get_options()
         append_exit_button(options)
-        return treat_menu(options, 'agenda_grades')
+        return treat_menu(options, 'agenda_grades', 0)
 
     def get_options(self):
         return [

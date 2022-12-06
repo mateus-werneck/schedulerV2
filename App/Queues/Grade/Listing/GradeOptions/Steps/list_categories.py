@@ -1,6 +1,6 @@
 from App.Data.Helpers.inline_keyboard_helper import (append_exit_button,
                                                      treat_menu)
-from App.Data.Helpers.message_helper import (category_icon, delete_icon,
+from App.Data.Helpers.message_helper import (category_icon, cross_mark_icon,
                                              edit_icon, open_book_icon)
 from App.Handlers.grade_handler import GradeHandler
 from App.Lib.Bot.chat import BotChat
@@ -41,11 +41,11 @@ class ListCategories(ListGradesOptions):
                 'name': f'{edit_icon()} Editar Turma'
             },
             {
-                'id': 'delete_grade',
-                'name': f'{delete_icon()} Deletar Turma'
-            },
-            {
                 'id': 'list_tasks',
                 'name': f'{open_book_icon()} Listar Tarefas'
+            },
+            {
+                'id': 'delete_grade',
+                'name': f'{cross_mark_icon()} Deletar Turma'
             }
         ]

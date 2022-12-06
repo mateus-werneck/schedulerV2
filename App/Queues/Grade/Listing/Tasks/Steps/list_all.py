@@ -42,7 +42,7 @@ class ListAll(ListTasks):
             return None
 
         append_exit_button(options)
-        return treat_menu(options, 'main_tasks')
+        return treat_menu(options, 'main_tasks', 2)
 
     def get_options(self):
         grade = self.get_grade()
