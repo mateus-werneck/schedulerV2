@@ -1,12 +1,10 @@
 
 from App.Lib.Client.marina_api import MarinaAPI
-from App.Queues.Task.Create.create import Create
-from App.Lib.Treat.date_treat\
-    import (treat_iso_string_to_datetime,
-            treat_datetime_to_iso_string,
-            treat_date_string_to_datetime)
-
+from App.Lib.Treat.date_treat import (treat_date_string_to_datetime,
+                                      treat_datetime_to_iso_string,
+                                      treat_iso_string_to_datetime)
 from App.Queues.Schedule.Create.create import Create as CreateSchedule
+from App.Queues.Task.Create.create import Create
 
 
 class CheckSchedule(Create):
@@ -24,7 +22,6 @@ class CheckSchedule(Create):
     def set_task_schedule_id(self):
         task = self.get_task()
         task['scheduleId'] = self.get_schedule_id()
-        self.set_task(task)
 
     def get_schedule_id(self):
         schedule = self.find_or_create_schedule()

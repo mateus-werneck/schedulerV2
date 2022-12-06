@@ -1,8 +1,8 @@
 
 from App.Data.Helpers.message_helper import down_face, floppy_disk
+from App.Data.Helpers.task_helper import treat_string_to_task
 from App.Lib.Client.marina_api import MarinaAPI
 from App.Queues.Task.Create.create import Create
-from App.Data.Helpers.task_helper import treat_string_to_task
 
 
 class SaveTask(Create):
@@ -22,10 +22,6 @@ class SaveTask(Create):
     def create_task(self):
         task = self.get_task()
         return MarinaAPI.instance().create_task(task)
-
-    def get_task(self):
-        task_data = self.get_text_data()
-        return treat_string_to_task(task_data)
     
     def notify(self, grade: dict):
         if grade.get('id'):

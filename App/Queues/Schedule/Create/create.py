@@ -6,12 +6,21 @@ class Create(AbstractHandler):
     _deadline = None
     _schedule = None
     
+    def get_steps(self) -> list:
+        return [
+            'save_schedule'
+        ]
+    
+    def get_namespace(self) -> str:
+        return 'Schedule.Create'
+    
     @staticmethod
     def set_grade(grade: str):
         Create._grade = grade
      
-    def get_grade(self):
-        return self._grade
+    @staticmethod
+    def get_grade():
+        return Create._grade
     
     @staticmethod
     def set_schedule(schedule: dict):
@@ -24,14 +33,7 @@ class Create(AbstractHandler):
     @staticmethod
     def set_deadline(deadline: str):
         Create._deadline = deadline
-     
-    def get_deadline(self):
-        return self._deadline
     
-    def get_steps(self) -> list:
-        return [
-            'save_schedule'
-        ]
-    
-    def get_namespace(self) -> str:
-        return 'Schedule.Create'
+    @staticmethod
+    def get_deadline():
+        return Create._deadline
