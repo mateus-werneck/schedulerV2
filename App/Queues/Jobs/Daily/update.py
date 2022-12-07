@@ -10,7 +10,7 @@ class Update(AbstractHandler):
         ]
 
     def get_namespace(self) -> str:
-        return 'App.Queues.Jobs.Daily'
+        return 'Jobs.Daily'
     
     @staticmethod
     def set_jobs(jobs: list):

@@ -4,7 +4,8 @@ from App.Lib.Treat.date_treat import (add_time_to_date, is_valid_pt_date,
 from App.Lib.Treat.time_treat import treat_string_hour_to_time
 from App.Lib.Treat.week_day_treat import WeekDay
 from App.Data.Helpers.message_helper import alarm_clock
-
+from App.Lib.Treat.date_treat import treat_node_string, treat_datetime_to_pt_date
+from App.Lib.Treat.time_treat import treat_datetime_to_string_hour
 
 def treat_string_to_task(new_task: str):
     task_props = new_task.split(',')
@@ -36,8 +37,11 @@ def get_deadline_date(day: str):
 
 
 def get_tasks_from_schedules(schedules: list):
-    map(treat_schedule_tasks, schedules)
-    return [task for task in [schedule.get('tasks') for schedule in schedules]]
+    [treat_schedule_tasks(schedule) for schedule in schedules]
+    tasks = list()
+    for schedule in schedules:
+        tasks += schedule.get('tasks')
+    return tasks
 
 
 def treat_schedule_tasks(schedule: dict):
@@ -47,7 +51,7 @@ def treat_schedule_tasks(schedule: dict):
 
 
 def treat_task_to_message(task: dict):
-    deadline = treat_iso_string_to_datetime(task.get('deadLine'))
+    deadline = treat_node_string(task.get('deadLine'))
     hour = treat_datetime_to_string_hour(deadline)
     due_date = treat_datetime_to_pt_date(deadline)
 

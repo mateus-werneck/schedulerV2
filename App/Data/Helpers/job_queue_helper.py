@@ -1,15 +1,17 @@
+from telegram.ext.callbackcontext import CallbackContext
 from App.Data.Helpers.task_helper import get_tasks_from_schedules
 from App.Lib.Log.logger import Logger
 from App.Lib.Client.marina_api import MarinaAPI
 from App.Lib.Bot.job_queue import BotJobQueue
 from App.Data.Helpers.task_helper import treat_task_to_message
+from App.Lib.Treat.date_treat import treat_node_string
 
 
-def append_today_tasks():
-    Logger.instance().info('Registering new tasks for today.', context=self)
-    daily_schedule = MarinaAPI.instance().list_today_tasks()
-    daily_jobs = get_schedule_to_jobs(daily_schedule)
-    map(BotJobQueue.instance().register_once, daily_jobs)
+def append_today_tasks(context: CallbackContext):
+    Logger.instance().info('Registering new tasks for today.')
+    daily_schedules = MarinaAPI.instance().list_today_tasks()
+    daily_jobs = get_schedule_to_jobs(daily_schedules)
+    [BotJobQueue.instance().register_once(**job) for job in daily_jobs]
 
 
 def get_schedule_to_jobs(daily_schedules: list):
@@ -20,8 +22,9 @@ def get_schedule_to_jobs(daily_schedules: list):
 def treat_task_to_job(task: dict):
     return {
         'callback': alert_task,
+        'time': treat_node_string(task.get('deadLine')),
+        'context': treat_task_to_message(task),
         'name': task.get('name'),
-        'context': treat_task_to_message(task)
     }
 
 

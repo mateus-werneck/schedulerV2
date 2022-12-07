@@ -5,7 +5,7 @@ from App.Lib.Bot.job_queue import BotJobQueue
 class RegisterJobs(Update):
 
     def handle(self):
-        map(self.register, self.get_jobs())
+        [self.register(job) for job in self.get_jobs()]
         return super().handle()
 
     def register(self, job: dict):
