@@ -15,13 +15,13 @@ class SetJobs(Update):
     def append_delete_expired_schedule(self, jobs: list):
         jobs.append({
             'callback': delete_expired_schedules,
-            'time': treat_string_hour_to_time('05:00'),
+            'time': treat_string_hour_to_time('03:00'),
             'name': 'Delete Expired Schedules'
         })
 
     def append_add_tasks_job(self, jobs: list):
         jobs.append({
             'callback': append_today_tasks,
-            'time': treat_string_hour_to_time('20:53'),
+            'time': treat_string_hour_to_time('03:01'),
             'name': 'Add Today Tasks'
         })
