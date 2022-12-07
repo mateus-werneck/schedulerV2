@@ -1,9 +1,10 @@
-from App.Lib.Treat.date_treat import (add_time_to_date,
+from App.Lib.Treat.date_treat import (add_time_to_date, is_valid_pt_date,
                                       treat_datetime_to_string,
-                                      is_valid_pt_date,
                                       treat_string_to_datetime)
 from App.Lib.Treat.time_treat import treat_string_hour_to_time
 from App.Lib.Treat.week_day_treat import WeekDay
+from App.Data.Helpers.message_helper import alarm_clock
+
 
 def treat_string_to_task(new_task: str):
     task_props = new_task.split(',')
@@ -15,9 +16,11 @@ def treat_string_to_task(new_task: str):
         'deadLine': get_deadline_from_message(task_props[2], task_props[3])
     }
 
+
 def append_task_description(task_props: list):
     if len(task_props) < 4:
         task_props.insert(1, task_props[0])
+
 
 def get_deadline_from_message(date: str, hour: str):
     date_to_treat = get_deadline_date(date)
@@ -30,3 +33,27 @@ def get_deadline_date(day: str):
     if is_valid_pt_date(day):
         return treat_string_to_datetime(day)
     return WeekDay().get_date_from_week_day(day)
+
+
+def get_tasks_from_schedules(schedules: list):
+    map(treat_schedule_tasks, schedules)
+    return [task for task in [schedule.get('tasks') for schedule in schedules]]
+
+
+def treat_schedule_tasks(schedule: dict):
+    tasks = schedule.get('tasks')
+    for task in tasks:
+        task['grade'] = schedule.get('grade')['name']
+
+
+def treat_task_to_message(task: dict):
+    deadline = treat_iso_string_to_datetime(task.get('deadLine'))
+    hour = treat_datetime_to_string_hour(deadline)
+    due_date = treat_datetime_to_pt_date(deadline)
+
+    return f'{alarm_clock()} Alerta de Tarefa.' \
+        + f'\n<b>Turma: </b>{task.get("gradeId")}' \
+        + f'\n<b>Tarefa: </b>{task.get("name")}' \
+        + f'\n<b>Descrição: </b>{task.get("description")}' \
+        + f'\n<b>Data Limite: </b>{due_date}' \
+        + f'\n<b>Horário de entrega: </b>{hour}'

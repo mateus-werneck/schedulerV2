@@ -1,10 +1,12 @@
-from App.Queues.Task.Listing.Tasks.list_tasks import ListTasks
-from App.Lib.Client.marina_api import MarinaAPI
-from App.Lib.Bot.client import BotClient
-from App.Lib.Bot.chat import BotChat
-from App.Handlers.task_handler import TaskHandler
+from App.Data.Helpers.inline_keyboard_helper import (append_exit_button,
+                                                     treat_menu)
 from App.Data.Helpers.message_helper import category_icon
-from App.Data.Helpers.inline_keyboard_helper import treat_menu, append_exit_button
+from App.Data.Helpers.task_helper import get_tasks_from_schedules
+from App.Handlers.task_handler import TaskHandler
+from App.Lib.Bot.chat import BotChat
+from App.Lib.Bot.client import BotClient
+from App.Lib.Client.marina_api import MarinaAPI
+from App.Queues.Task.Listing.Tasks.list_tasks import ListTasks
 
 
 class ListAll(ListTasks):
@@ -34,8 +36,7 @@ class ListAll(ListTasks):
 
     def get_tasks(self):
         schedules = MarinaAPI.instance().list_today_tasks()
-        tasks = [task for task in [schedule.get(
-            'tasks') for schedule in schedules]]
+        tasks = get_tasks_from_schedules(schedules)
         return list(map(self.treat_task, tasks))
 
     def treat_task(task: dict):
