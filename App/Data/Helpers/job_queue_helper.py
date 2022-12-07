@@ -4,7 +4,7 @@ from App.Lib.Log.logger import Logger
 from App.Lib.Client.marina_api import MarinaAPI
 from App.Lib.Bot.job_queue import BotJobQueue
 from App.Data.Helpers.task_helper import treat_task_to_message
-from App.Lib.Treat.date_treat import treat_node_string
+from App.Lib.Treat.date_treat import treat_node_string, get_minutes_before
 
 
 def append_today_tasks(context: CallbackContext):
@@ -20,9 +20,10 @@ def get_schedule_to_jobs(daily_schedules: list):
 
 
 def treat_task_to_job(task: dict):
+    deadline = treat_node_string(task.get('deadLine'))
     return {
         'callback': alert_task,
-        'time': treat_node_string(task.get('deadLine')),
+        'when': get_minutes_before(deadline, 180),
         'context': treat_task_to_message(task),
         'name': task.get('name'),
     }
