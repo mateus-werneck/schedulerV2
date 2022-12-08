@@ -1,5 +1,5 @@
 
-from App.Data.Helpers.message_helper import edit_icon, down_face
+from App.Data.Helpers.message_helper import down_face, edit_icon
 from App.Lib.Client.marina_api import MarinaAPI
 from App.Queues.Grade.Edit.edit import Edit
 
@@ -18,8 +18,10 @@ class EditGrade(Edit):
 
     def notify(self, grade: dict):
         if grade.get('id'):
-            message = f'{edit_icon()} Turma alterada com sucesso.'
+            message = f'{edit_icon()} Turma <b>{grade.get("name")}</b>'\
+                + ' alterada com sucesso.'
         else:
-            message = f'{down_face()} Não consegui alterar a turma para você.'
+            message = f'{down_face()} Não consegui alterar a turma' \
+                + f' <b>{grade.get("name")}</b> para você.'
 
         self.send_message(message)

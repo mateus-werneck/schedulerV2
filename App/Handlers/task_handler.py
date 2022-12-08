@@ -40,8 +40,9 @@ class TaskHandler(AbstractHandlerRequest):
     def ask_edit_task(self):
         task = MarinaAPI.instance().find_task(self.get_task())
         message = f'{edit_icon()} Informe a tarefa que deseja editar seguindo\
-            o exemplo a baixo: \n' + treat_task_to_message(task)
+            o exemplo a baixo.'
         self.send_message(message)
+        self.send_message(treat_task_to_message(task))
 
     def is_delete_task_mode(self):
         return self.is_mode('main_task_delete_task')

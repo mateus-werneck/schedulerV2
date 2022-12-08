@@ -14,7 +14,7 @@ class SaveGrade(Create):
         if not self.has_valid_text_data():
             self.send_message('Por favor informe uma turma válida.')
             return
-        
+
         new_grade = self.create_grade()
         self.notify(new_grade)
 
@@ -24,11 +24,13 @@ class SaveGrade(Create):
 
     def get_grade_name(self):
         return self.get_text_data()
-    
+
     def notify(self, grade: dict):
         if grade.get('id'):
-            message = f'{floppy_disk()} Turma criada com sucesso.'
+            message = f'{floppy_disk()} Turma <b>{grade.get("name")}</b>'\
+                + ' criada com sucesso.'
         else:
-            message = f'{down_face()} Não consegui criar a turma para você.'
-        
+            message = f'{down_face()} Não consegui criar a turma' \
+                + f'<b>{grade.get("name")}</b> para você.'
+
         self.send_message(message)

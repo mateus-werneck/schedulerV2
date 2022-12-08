@@ -34,6 +34,11 @@ def treat_string_to_datetime(date: str):
     local_zone = timezone('America/Sao_Paulo')
     return datetime.strptime(date, iso_format)\
         .replace(tzinfo=local_zone)
+        
+def treat_pt_string_to_datetime(date: str):
+    local_zone = timezone('America/Sao_Paulo')
+    return datetime.strptime(date, pt_br_format)\
+        .replace(tzinfo=local_zone)
 
 
 def treat_datetime_to_string(date: datetime):

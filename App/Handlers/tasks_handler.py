@@ -1,3 +1,4 @@
+from App.Data.Helpers.task_helper import get_base_task_message
 from App.Lib.Standard.abstract_handler_request import AbstractHandlerRequest
 from App.Queues.Standard.factory_queue import FactoryQueue
 
@@ -32,16 +33,19 @@ class TasksHandler(AbstractHandlerRequest):
 
     def ask_task_data(self):
         message = self.get_ask_message()
-        self.send_message(message)
+        self.send_message('Informe a tarefa que deseja cadastrar seguindo'
+                          + ' o exemplo abaixo.')
+        self.send_message(self.get_ask_message())
         return True
 
     def get_ask_message(self):
-        return 'Informe a tarefa que deseja cadastrar' \
-            + '(nome, descrição, dia e hora).\n<b>Exemplos</b>\n\n'\
-            + '1 - Preparar Aula 05, Começar a preparação da aula 05,\
-            <b>quarta</b>, <b>19:30</b>\n'\
-            + '2 - Corrigir provas, corrigir as provas escritas,\
-            <b>22/10/2022</b>, <b>15:22</b>'
+        return get_base_task_message()\
+            .format(
+                name='Preparar Lição 1',
+                description='Finalizar a preparação da Lição 1',
+                due_date='22/12/2022',
+                delivery_date='19:30'
+        )
 
     def start_task_mode(self):
         queue = 'Task.Listing.TaskOptions.list_task_options'

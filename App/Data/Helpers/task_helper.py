@@ -4,20 +4,20 @@ from App.Lib.Treat.date_treat import (add_time_to_date, get_minutes_before,
                                       treat_datetime_to_pt_date,
                                       treat_datetime_to_string,
                                       treat_node_string,
-                                      treat_string_to_datetime)
+                                      treat_pt_string_to_datetime)
 from App.Lib.Treat.time_treat import (treat_datetime_to_string_hour,
                                       treat_string_hour_to_time)
 from App.Lib.Treat.week_day_treat import WeekDay
 
 
 def treat_string_to_task(new_task: str):
-    task_props = new_task.split(',')
-    append_task_description(task_props)
-
+    task_props = [task.split(':', 1).pop().strip()
+                  for task in new_task.split('\n')]
     return {
-        'name': task_props[0],
-        'description': task_props[1],
-        'deadLine': get_deadline_from_message(task_props[2], task_props[3])
+        'name': task_props.pop(0),
+        'description': task_props.pop(0),
+        'deadLine': get_deadline_from_message(
+            task_props.pop(0), task_props.pop(0))
     }
 
 
@@ -35,7 +35,7 @@ def get_deadline_from_message(date: str, hour: str):
 
 def get_deadline_date(day: str):
     if is_valid_pt_date(day):
-        return treat_string_to_datetime(day)
+        return treat_pt_string_to_datetime(day)
     return WeekDay().get_date_from_week_day(day)
 
 
@@ -89,5 +89,5 @@ def treat_task_to_message(task: dict):
         'due_date': treat_datetime_to_pt_date(deadline),
         'delivery_date': treat_datetime_to_string_hour(deadline),
     }
-    
+
     return get_base_task_message().format(**task_message)

@@ -1,6 +1,6 @@
 
-from App.Queues.Task.Create.create import Create
 from App.Data.Helpers.task_helper import treat_string_to_task
+from App.Queues.Task.Create.create import Create
 
 
 class SetTask(Create):
@@ -16,7 +16,7 @@ class SetTask(Create):
         
         task = self.get_task_data()
         self.set_task(task)
-        return True
+        return False
 
     def get_task_data(self):
         task_data = self.get_text_data()
