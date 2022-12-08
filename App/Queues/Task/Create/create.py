@@ -9,7 +9,7 @@ class Create(AbstractHandler):
     def get_steps(self) -> list:
         return [
             'set_task',
-            'check_schedule',
+            'set_schedule',
             'save_task'
         ]
     

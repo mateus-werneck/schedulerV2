@@ -9,6 +9,7 @@ class Edit(AbstractHandler):
     def get_steps(self) -> list:
         return [
             'set_task',
+            'check_schedule',
             'edit_task'
         ]
     
