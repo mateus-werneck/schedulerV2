@@ -33,7 +33,7 @@ class CheckScheduleExists(Search):
         return deadline.replace(hour=0, minute=0)
 
     def find_schedule(self):
-        schedule_date = self.get_deadline()
+        schedule_date = self.get_deadline_to_compare()
         schedule_index = self.schedule_dates.index(schedule_date)
         return self.get_grade().get('schedules')[schedule_index]
 
