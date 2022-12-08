@@ -12,10 +12,10 @@ class Delete(AbstractHandler):
     def get_namespace(self) -> str:
         return 'Grade.Delete'
 
-    @classmethod
-    def set_grade(cls, grade: str):
-        cls._grade = grade
+    @staticmethod
+    def set_grade(grade: str):
+        Delete._grade = grade
      
-    @classmethod   
-    def get_grade(cls):
-        return cls._grade
+    @staticmethod   
+    def get_grade():
+        return Delete._grade

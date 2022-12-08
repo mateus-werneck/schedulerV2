@@ -12,10 +12,10 @@ class Edit(AbstractHandler):
     def get_namespace(self) -> str:
         return 'Grade.Edit'
 
-    @classmethod
-    def set_grade(cls, grade: str):
-        cls._grade = grade
+    @staticmethod
+    def set_grade(grade: str):
+        Edit._grade = grade
      
-    @classmethod   
-    def get_grade(cls):
-        return cls._grade
+    @staticmethod   
+    def get_grade():
+        return Edit._grade

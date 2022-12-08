@@ -4,13 +4,13 @@ from App.Queues.Standard.abstract_handler import AbstractHandler
 class ListTaskOptions(AbstractHandler):
     _task = None
     
-    @classmethod
-    def get_task(cls):
-        return cls._task
+    @staticmethod
+    def get_task():
+        return ListTaskOptions._task
     
-    @classmethod
-    def set_task(cls, task: str):
-        cls._task = task
+    @staticmethod
+    def set_task(task: str):
+        ListTaskOptions._task = task
         
     def get_steps(self) -> list:
         return [

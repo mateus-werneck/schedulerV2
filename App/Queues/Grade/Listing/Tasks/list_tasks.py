@@ -12,10 +12,10 @@ class ListTasks(AbstractHandler):
     def get_namespace(self) -> str:
         return 'Grade.Listing.Tasks'
 
-    @classmethod
-    def set_grade(cls, grade: str):
-        cls._grade = grade
+    @staticmethod
+    def set_grade(grade: str):
+        ListTasks_grade = grade
      
-    @classmethod   
+    @staticmethod   
     def get_grade(cls):
-        return cls._grade
+        return ListTasks_grade

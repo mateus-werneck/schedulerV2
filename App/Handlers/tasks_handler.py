@@ -6,13 +6,13 @@ from App.Queues.Standard.factory_queue import FactoryQueue
 class TasksHandler(AbstractHandlerRequest):
     _grade = None
 
-    @classmethod
+    @staticmethod
     def get_grade(cls):
-        return cls._grade
+        return TasksHandler._grade
 
-    @classmethod
-    def set_grade(cls, grade: str):
-        cls._grade = grade
+    @staticmethod
+    def set_grade(grade: str):
+        TasksHandler._grade = grade
 
     def get_command(self) -> str:
         return ''

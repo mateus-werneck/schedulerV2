@@ -1,12 +1,12 @@
 from App.Data.Helpers.inline_keyboard_helper import (append_exit_button,
                                                      treat_menu)
-from App.Data.Helpers.message_helper import (category_icon,
-                                             cross_mark_icon, edit_icon)
+from App.Data.Helpers.message_helper import (category_icon, cross_mark_icon,
+                                             edit_icon)
 from App.Handlers.task_handler import TaskHandler
 from App.Lib.Bot.chat import BotChat
 from App.Lib.Bot.client import BotClient
-from App.Queues.Task.Listing.TaskOptions.list_task_options \
-    import ListTaskOptions
+from App.Queues.Task.Listing.TaskOptions.list_task_options import \
+    ListTaskOptions
 
 
 class ListCategories(ListTaskOptions):

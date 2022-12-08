@@ -14,7 +14,7 @@ class Delete(AbstractHandler):
         return 'Task.Delete'
 
     @staticmethod
-    def set_task(task: dict):
+    def set_task(task: str):
         Delete._task = task
      
     @staticmethod

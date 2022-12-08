@@ -49,6 +49,9 @@ class TaskHandler(AbstractHandlerRequest):
 
     def delete_task(self):
         queue_name = 'Task.Delete.delete'
+        if not self.get_task():
+            self.get_logger().critical(f'TASK: {str(self.get_task())}')
+            return False
         queue = FactoryQueue.create(queue_name)
         queue.set_task(self.get_task())
         queue.init()
