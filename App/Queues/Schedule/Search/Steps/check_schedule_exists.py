@@ -15,7 +15,7 @@ class CheckScheduleExists(Search):
         schedule = self.find_schedule()
         self.get_logger().critical(f'FOUND SCHEDULE: {str(schedule)}')
         self.set_schedule(schedule)
-        return super().handle(True)
+        return super().handle()
     
     def has_schedule(self):        
         if not self.get_grade().get('schedules'):

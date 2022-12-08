@@ -11,4 +11,4 @@ class SetGrade(Search):
             grade = {}
 
         self.set_grade(grade)
-        return super().handle(True)
+        return super().handle()
