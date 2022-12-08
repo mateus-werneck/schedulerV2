@@ -33,7 +33,7 @@ class ListAll(ListGrades):
         return menu
 
     def get_title(self):
-        return f'Escolha uma opção {category_icon()}'
+        return f'Escolha uma turma {category_icon()}'
 
     def get_menu(self):
         menu_name = 'grade'
@@ -42,7 +42,7 @@ class ListAll(ListGrades):
         if not options:
             return None
         
-        options = treat_keyboard(options, menu_name)
+        options = treat_keyboard(options, menu_name, 2)
         append_exit_button(options, menu_name)
         return treat_menu(options)
 

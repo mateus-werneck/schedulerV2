@@ -29,7 +29,7 @@ class ListAll(ListTasks):
         return menu
 
     def get_title(self):
-        return f'Escolha uma opção {category_icon()}'
+        return f'Escolha uma tarefa {category_icon()}'
 
     def get_menu(self):
         options = self.get_options()

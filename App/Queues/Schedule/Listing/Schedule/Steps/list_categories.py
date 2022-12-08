@@ -39,15 +39,15 @@ class ListCategories(ListScheduleOptions):
     def get_options(self):
         return [
             {
-                'id': 'list_grades',
-                'name': f'{group_icon()} Turmas'
-            },
-            {
                 'id': 'list_schedule',
                 'name': f'{calendar_icon()} Cronograma'
             },
             {
                 'id': 'list_tasks',
                 'name': f' {pin_icon()} Tarefas'
+            },
+               {
+                'id': 'list_grades',
+                'name': f'{group_icon()} Turmas'
             }
         ]

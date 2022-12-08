@@ -33,7 +33,7 @@ class ListCategories(ListTaskOptions):
 
     def get_menu(self):
         menu_name = 'main_task'
-        options = treat_keyboard(self.get_options(), menu_name) 
+        options = treat_keyboard(self.get_options(), menu_name, 2) 
         append_exit_button(options, menu_name)
         return treat_menu(options)
 
