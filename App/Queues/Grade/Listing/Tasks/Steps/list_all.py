@@ -39,15 +39,13 @@ class ListAll(ListTasks):
 
     def get_menu(self):
         options = self.get_options()
-
-        if not options:
-            return None
-        
         menu_name = 'main_tasks'
         options = treat_keyboard(options, menu_name)
-        append_exit_button(options, menu_name)
+
         append_custom_button(options, menu_name, 'create_task',
                              f' {add_icon()} Cadastrar Tarefa')
+        append_exit_button(options, menu_name)
+
         return treat_menu(options)
 
     def get_options(self):
