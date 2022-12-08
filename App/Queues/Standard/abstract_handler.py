@@ -29,7 +29,7 @@ class AbstractHandler(ABC):
         self.set_next()
 
         if not self.has_finished():
-            step_name = self.__next_handler.__class__.__name
+            step_name = self.__next_handler.__class__.__name__
             self.get_logger().info(f'Executing Step: {step}', context=self)
             self.__next_handler.handle()
             
