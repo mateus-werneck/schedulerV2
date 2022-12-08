@@ -31,6 +31,9 @@ class MarinaAPI(Connection):
         if not grade or not grade['schedules']:
             return []
         return [task for task in grade['schedules'][0]['tasks']]
+    
+    def find_task(self, id: str):
+        return self.get(f'tasks/{id}')
 
     def create_task(self, data: dict):
         return self.post('tasks', data)
