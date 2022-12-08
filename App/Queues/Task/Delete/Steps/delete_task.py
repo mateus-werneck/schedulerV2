@@ -8,7 +8,7 @@ from App.Queues.Task.Delete.delete import Delete
 class DeleteTask(Delete):
 
     def handle(self) -> bool:
-        self.save()
+        self.delete()
         return super().handle()
 
     def delete(self):    

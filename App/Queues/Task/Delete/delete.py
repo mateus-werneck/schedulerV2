@@ -15,8 +15,8 @@ class Delete(AbstractHandler):
 
     @staticmethod
     def set_task(task: dict):
-        Create._task = task
+        Delete._task = task
      
     @staticmethod
     def get_task():
-        return Create._task
+        return Delete._task
