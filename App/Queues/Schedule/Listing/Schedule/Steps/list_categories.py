@@ -1,4 +1,5 @@
 from App.Data.Helpers.inline_keyboard_helper import (append_back_button,
+                                                     treat_keyboard,
                                                      treat_menu)
 from App.Data.Helpers.message_helper import (calendar_icon, category_icon,
                                              group_icon, pin_icon)
@@ -30,9 +31,10 @@ class ListCategories(ListScheduleOptions):
         return f'Escolha uma categoria {category_icon()}'
 
     def get_menu(self):
-        options = self.get_options()
-        append_back_button(options)
-        return treat_menu(options, 'main_agenda')
+        menu_name = 'main_agenda'
+        options = treat_keyboard(self.get_options(), menu_name, 2)
+        append_back_button(options, menu_name)
+        return treat_menu(options)
 
     def get_options(self):
         return [

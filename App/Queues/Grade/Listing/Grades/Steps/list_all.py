@@ -1,4 +1,5 @@
 from App.Data.Helpers.inline_keyboard_helper import (append_exit_button,
+                                                     treat_keyboard,
                                                      treat_menu)
 from App.Data.Helpers.message_helper import category_icon, down_face
 from App.Handlers.grade_handler import GradeHandler
@@ -35,13 +36,15 @@ class ListAll(ListGrades):
         return f'Escolha uma opção {category_icon()}'
 
     def get_menu(self):
+        menu_name = 'grade'
         options = self.get_options()
-
+        
         if not options:
             return None
-
-        append_exit_button(options)
-        return treat_menu(options, 'grade')
+        
+        options = treat_keyboard(options, menu_name)
+        append_exit_button(options, menu_name)
+        return treat_menu(options)
 
     def get_options(self):
         return MarinaAPI.instance().list_grades()

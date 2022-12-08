@@ -1,4 +1,5 @@
 from App.Data.Helpers.inline_keyboard_helper import (append_exit_button,
+                                                     treat_keyboard,
                                                      treat_menu)
 from App.Data.Helpers.message_helper import (add_icon, group_icon,
                                              open_book_icon)
@@ -30,18 +31,19 @@ class ListCategories(ListGradeOptions):
         return f'Turmas {group_icon()}'
 
     def get_menu(self):
-        options = self.get_options()
-        append_exit_button(options)
-        return treat_menu(options, 'agenda_grades', 2)
+        menu_name = 'agenda_grades'
+        options = treat_keyboard(self.get_options(), menu_name)
+        append_exit_button(options, menu_name)
+        return treat_menu(options)
 
     def get_options(self):
         return [
+             {
+                'id': 'show_grades',
+                'name': f'{open_book_icon()} Visualizar Turmas'
+            },
             {
                 'id': 'create_grade',
                 'name': f'{add_icon()} Cadastrar Turma'
-            },
-            {
-                'id': 'show_grades',
-                'name': f'{open_book_icon()} Visualizar Turmas'
             }
         ]
