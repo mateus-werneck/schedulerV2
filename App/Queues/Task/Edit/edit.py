@@ -6,6 +6,11 @@ class Edit(AbstractHandler):
     _task_id = None
     _task = None
     
+    def __init__(self):
+        if self.__class__ is Edit:
+            Edit._task_id = None
+            Edit._task = None
+    
     def get_steps(self) -> list:
         return [
             'set_task',

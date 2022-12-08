@@ -1,7 +1,12 @@
 from App.Queues.Standard.abstract_handler import AbstractHandler
 
+
 class Update(AbstractHandler):
     _jobs = None
+    
+    def __init__(self):
+        if self.__class__ is Update:
+            Update._jobs = None
     
     def get_steps(self) -> list:
         return [

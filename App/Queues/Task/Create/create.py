@@ -6,6 +6,11 @@ class Create(AbstractHandler):
     _grade = None
     _task = None
     
+    def __init__(self):
+        if self.__class__ is Create:
+            Create._grade = None
+            Create._task = None
+        
     def get_steps(self) -> list:
         return [
             'set_task',

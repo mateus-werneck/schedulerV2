@@ -4,6 +4,10 @@ from App.Queues.Standard.abstract_handler import AbstractHandler
 class Delete(AbstractHandler):
     _grade = None
     
+    def __init__(self):
+        if self.__class__ is Delete:
+            Delete._grade = None
+    
     def get_steps(self) -> list:
         return [
             'delete_grade'

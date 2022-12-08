@@ -6,6 +6,12 @@ class Search(AbstractHandler):
     _deadline = None
     _schedule = None
     
+    def __init__(self):
+        if self.__class__ is Search:
+            Search._grade = None
+            Search._deadline = None
+            Search._schedule = None
+    
     def get_steps(self) -> list:
         return [
             'set_grade',

@@ -6,6 +6,12 @@ class Create(AbstractHandler):
     _deadline = None
     _schedule = None
     
+    def __init__(self):
+        if self.__class__ is Create:
+            Create._grade = None
+            Create._deadline = None
+            Create._schedule = None
+    
     def get_steps(self) -> list:
         return [
             'save_schedule'

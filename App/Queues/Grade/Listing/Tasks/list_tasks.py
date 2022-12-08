@@ -4,6 +4,10 @@ from App.Queues.Standard.abstract_handler import AbstractHandler
 class ListTasks(AbstractHandler):
     _grade = None
     
+    def __init__(self):
+        if self.__class__ is ListTasks:
+            ListTasks._grade = None
+    
     def get_steps(self) -> list:
         return [
             'list_all'

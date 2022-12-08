@@ -4,6 +4,10 @@ from App.Queues.Standard.abstract_handler import AbstractHandler
 class Edit(AbstractHandler):
     _grade = None
     
+    def __init__(self):
+        if self.__class__ is Edit:
+            Edit._grade = None
+    
     def get_steps(self) -> list:
         return [
             'edit_grade'
