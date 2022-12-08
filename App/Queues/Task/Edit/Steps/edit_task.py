@@ -19,8 +19,10 @@ class EditTask(Edit):
         task = self.get_task()
         return MarinaAPI.instance().edit_task(self.get_task_id(), task)
 
-    def notify(self, task: dict):
-        if task.get('id'):
+    def notify(self, updated: dict):
+        task = self.get_task()
+        
+        if updated.get('id'):
             message = f'{floppy_disk()} Tarefa <b>{task.get("name")}</b>'\
                 + ' alterada com sucesso.'
         else:

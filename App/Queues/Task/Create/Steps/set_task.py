@@ -6,10 +6,10 @@ from App.Queues.Task.Create.create import Create
 class SetTask(Create):
 
     def handle(self) -> bool:
-        result = self.save()
+        result = self.set_task_data()
         return super().handle(not result)
 
-    def save(self):
+    def set_task_data(self):
         if not self.has_valid_text_data():
             self.send_message('Por favor informe uma tarefa válida.')
             return False
