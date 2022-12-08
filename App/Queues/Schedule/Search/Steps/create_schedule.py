@@ -8,6 +8,7 @@ from App.Queues.Schedule.Search.search import Search
 class CreateSchedule(Search):
     
     def handle(self) -> bool:
+        self.get_logger().critical(f'CHECKING SCHEDULE: {str(self.get_schedule())}')
         if self.has_active_schedule():
             return super().handle()
         
