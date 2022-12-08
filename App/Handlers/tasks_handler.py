@@ -7,7 +7,7 @@ class TasksHandler(AbstractHandlerRequest):
     _grade = None
 
     @staticmethod
-    def get_grade(cls):
+    def get_grade():
         return TasksHandler._grade
 
     @staticmethod
