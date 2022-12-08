@@ -14,8 +14,8 @@ class ListTasks(AbstractHandler):
 
     @staticmethod
     def set_grade(grade: str):
-        ListTasks_grade = grade
+        ListTasks._grade = grade
      
     @staticmethod   
     def get_grade():
-        return ListTasks_grade
+        return ListTasks._grade
