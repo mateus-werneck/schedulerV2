@@ -3,12 +3,12 @@ from App.Lib.Treat.date_treat import (treat_datetime_to_string,
                                       treat_node_string,
                                       treat_string_to_datetime)
 from App.Queues.Schedule.Search.search import Search
+from App.Queues.Standard.factory_queue import FactoryQueue
 
 
 class CreateSchedule(Search):
     
     def handle(self) -> bool:
-        self.get_logger().critical(f'CHECKING SCHEDULE: {str(self.get_schedule())}')
         if self.has_active_schedule():
             return super().handle()
         
@@ -19,7 +19,7 @@ class CreateSchedule(Search):
     
     
     def create_schedule(self):
-        grade = self.get_grade()
+        grade = self.get_grade().get('id')
         deadline = self.get_deadline()
 
         queue = FactoryQueue.create('Schedule.Create.create')
