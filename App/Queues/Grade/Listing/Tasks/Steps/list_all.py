@@ -18,11 +18,6 @@ class ListAll(ListTasks):
 
     def set_callback(self):
         menu = self.send_menu()
-
-        if menu is None:
-            self.send_message(f'{down_face()} Nenhuma tarefa foi encontrada.')
-            return
-
         callback_function = TasksHandler.instance().execute
         BotClient.instance().add_callback_handler(menu, callback_function)
         TasksHandler.instance().set_grade(self.get_grade())
@@ -30,8 +25,7 @@ class ListAll(ListTasks):
     def send_menu(self):
         title = self.get_title()
         menu = self.get_menu()
-        if menu is not None:
-            BotChat.instance().send_callback_query(title, menu)
+        BotChat.instance().send_callback_query(title, menu)
         return menu
 
     def get_title(self):
@@ -41,11 +35,11 @@ class ListAll(ListTasks):
         options = self.get_options()
         menu_name = 'main_tasks'
         options = treat_keyboard(options, menu_name)
-
+        
         append_custom_button(options, menu_name, 'create_task',
                              f' {add_icon()} Cadastrar Tarefa')
         append_exit_button(options, menu_name)
-
+        
         return treat_menu(options)
 
     def get_options(self):
