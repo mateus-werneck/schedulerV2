@@ -30,7 +30,7 @@ class AbstractHandler(ABC):
 
         if not self.has_finished():
             step_name = self.__next_handler.__class__.__name__
-            self.get_logger().info(f'Executing Step: {step}', context=self)
+            self.get_logger().info(f'Executing Step: {step_name}', context=self)
             self.__next_handler.handle()
             
         return True
