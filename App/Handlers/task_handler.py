@@ -29,6 +29,8 @@ class TaskHandler(AbstractHandlerRequest):
         FactoryQueue.create(queue_name).init()
 
     def answer_task_options(self):
+        self.delete_message()
+        
         if self.is_edit_task_mode():
             self.ask_edit_task()
         elif self.is_delete_task_mode():
