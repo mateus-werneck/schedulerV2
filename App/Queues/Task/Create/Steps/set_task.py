@@ -16,7 +16,7 @@ class SetTask(Create):
         
         task = self.get_task_data()
         self.set_task(task)
-        return False
+        return True
 
     def get_task_data(self):
         task_data = self.get_text_data()
