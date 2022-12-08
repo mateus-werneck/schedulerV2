@@ -20,7 +20,7 @@ class TaskHandler(AbstractHandlerRequest):
         return ''
 
     def get_steps(self) -> list:
-        return [self.answer_task_options]
+        return [self.answer_task_options, self.edit_task]
 
     def list_task_options(self):
         task = self.get_callback_data()
@@ -42,7 +42,7 @@ class TaskHandler(AbstractHandlerRequest):
     def ask_edit_task(self):
         task = MarinaAPI.instance().find_task(self.get_task())
         message = f'{edit_icon()} Informe a tarefa que deseja editar seguindo'\
-            + ' o exemplo a baixo.'
+            + ' o modelo abaixo.'
         self.send_message(message)
         self.send_message(treat_task_to_message(task))
 
@@ -51,10 +51,11 @@ class TaskHandler(AbstractHandlerRequest):
 
     def delete_task(self):
         queue_name = 'Task.Delete.delete'
-        if not self.get_task():
-            self.get_logger().critical(f'TASK: {str(self.get_task())}')
-            return False
         queue = FactoryQueue.create(queue_name)
         queue.set_task(self.get_task())
         queue.init()
         return False
+
+    def edit_task(self):
+        queue_name = 'Task.Edit.edit'
+        FactoryQueue.create(queue_name).init()

@@ -13,6 +13,10 @@ from App.Lib.Treat.week_day_treat import WeekDay
 def treat_string_to_task(new_task: str):
     task_props = [task.split(':', 1).pop().strip()
                   for task in new_task.split('\n')]
+    
+    if len(task_props) != 4:
+        return {}
+    
     return {
         'name': task_props.pop(0),
         'description': task_props.pop(0),

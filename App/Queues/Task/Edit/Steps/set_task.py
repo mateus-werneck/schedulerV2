@@ -1,9 +1,9 @@
 
 from App.Data.Helpers.task_helper import treat_string_to_task
-from App.Queues.Task.Create.create import Create
+from App.Queues.Task.Edit.edit import Edit
 
 
-class SetTask(Create):
+class SetTask(Edit):
 
     def handle(self) -> bool:
         result = self.save()

@@ -23,10 +23,10 @@ class SaveTask(Create):
         task = self.get_task()
         return MarinaAPI.instance().create_task(task)
     
-    def notify(self, grade: dict):
+    def notify(self, new_task: dict):
         task = self.get_task()
        
-        if grade.get('id'):
+        if new_task.get('id'):
             message = f'{floppy_disk()} Tarefa <b>{task.get("name")}</b>'\
                 + ' criada com sucesso.'
         else:
