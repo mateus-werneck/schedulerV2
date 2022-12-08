@@ -20,6 +20,8 @@ def append_today_tasks(context: CallbackContext):
 def get_schedule_to_jobs(daily_schedules: list):
     tasks = get_tasks_from_schedules(daily_schedules)
     tasks = list(map(treat_task_to_job, tasks))
+    
+    jobs = list()
     deadline_alternatives = [60, 30, 10]
 
     for task in tasks:
@@ -27,9 +29,10 @@ def get_schedule_to_jobs(daily_schedules: list):
             task_alternative = deepcopy(task)
             deadline = task_alternative['when']
             task_alternative['when'] = get_minutes_before(deadline, minutes)
-            tasks.append(task_alternative)
+            jobs.append(task_alternative)
+        jobs.append(task)
 
-    return tasks
+    return jobs
 
 
 def treat_task_to_job(task: dict):
