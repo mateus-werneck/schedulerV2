@@ -1,12 +1,13 @@
-from App.Lib.Treat.date_treat import (add_time_to_date, is_valid_pt_date,
-                                      treat_datetime_to_string,
-                                      treat_string_to_datetime)
-from App.Lib.Treat.time_treat import treat_string_hour_to_time
-from App.Lib.Treat.week_day_treat import WeekDay
 from App.Data.Helpers.message_helper import alarm_clock
-from App.Lib.Treat.date_treat \
-    import treat_node_string, treat_datetime_to_pt_date, get_minutes_before
-from App.Lib.Treat.time_treat import treat_datetime_to_string_hour
+from App.Lib.Treat.date_treat import (add_time_to_date, get_minutes_before,
+                                      is_valid_pt_date,
+                                      treat_datetime_to_pt_date,
+                                      treat_datetime_to_string,
+                                      treat_node_string,
+                                      treat_string_to_datetime)
+from App.Lib.Treat.time_treat import (treat_datetime_to_string_hour,
+                                      treat_string_hour_to_time)
+from App.Lib.Treat.week_day_treat import WeekDay
 
 
 def treat_string_to_task(new_task: str):
@@ -52,9 +53,18 @@ def treat_schedule_tasks(schedule: dict):
         task['grade'] = schedule.get('grade')['name']
 
 
-def treat_task_to_message(task: dict):
+def get_base_task_message():
+    return (
+        '<b>Tarefa:</b> {name}\
+        \n<b>Descrição:</b> {description}\
+        \n<b>Data Limite:</b> {due_date}\
+        \n<b>Horário de entrega:</b> {delivery_date}\
+    ')
+
+
+def treat_task_to_alert_message(task: dict):
     deadline = get_minutes_before(treat_node_string(task.get('deadLine')), 180)
-    
+
     task_message = {
         'grade': task.get('grade'),
         'name': task.get('name'),
@@ -62,16 +72,22 @@ def treat_task_to_message(task: dict):
         'due_date': treat_datetime_to_pt_date(deadline),
         'delivery_date': treat_datetime_to_string_hour(deadline),
     }
+
+    message = f'{alarm_clock()} Alerta de Tarefa.' \
+        + '\n<b>Turma:</b> {grade}\n' \
+        + get_base_task_message()
+
+    return message.format(**task_message)
+
+
+def treat_task_to_message(task: dict):
+    deadline = get_minutes_before(treat_node_string(task.get('deadLine')), 180)
+
+    task_message = {
+        'name': task.get('name'),
+        'description': task.get('description'),
+        'due_date': treat_datetime_to_pt_date(deadline),
+        'delivery_date': treat_datetime_to_string_hour(deadline),
+    }
     
-    return f'{alarm_clock()} Alerta de Tarefa.' \
-        + get_base_task_message().format(**task_message)
-
-
-def get_base_task_message():
-    return ('\
-        \n<b>Turma:</b> {grade}\
-        \n<b>Tarefa:</b> {name}\
-        \n<b>Descrição:</b> {description}\
-        \n<b>Data Limite:</b> {due_date}\
-        \n<b>Horário de entrega:</b> {hour}\
-    ')
+    return get_base_task_message().format(**task_message)

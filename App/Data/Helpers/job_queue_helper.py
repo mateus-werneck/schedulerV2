@@ -1,10 +1,11 @@
 from telegram.ext.callbackcontext import CallbackContext
-from App.Data.Helpers.task_helper import get_tasks_from_schedules
-from App.Lib.Log.logger import Logger
-from App.Lib.Client.marina_api import MarinaAPI
+
+from App.Data.Helpers.task_helper import (get_tasks_from_schedules,
+                                          treat_task_to_alert_message)
 from App.Lib.Bot.job_queue import BotJobQueue
-from App.Data.Helpers.task_helper import treat_task_to_message
-from App.Lib.Treat.date_treat import treat_node_string, get_minutes_before
+from App.Lib.Client.marina_api import MarinaAPI
+from App.Lib.Log.logger import Logger
+from App.Lib.Treat.date_treat import get_minutes_before, treat_node_string
 
 
 def append_today_tasks(context: CallbackContext):
@@ -23,8 +24,8 @@ def treat_task_to_job(task: dict):
     deadline = treat_node_string(task.get('deadLine'))
     return {
         'callback': alert_task,
-        'when': get_minutes_before(deadline, 180),
-        'context': treat_task_to_message(task),
+        'when': get_minutes_before(deadline, 185),
+        'context': treat_task_to_alert_message(task),
         'name': task.get('name'),
     }
 

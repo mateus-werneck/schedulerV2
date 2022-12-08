@@ -1,6 +1,9 @@
+from App.Data.Helpers.message_helper import edit_icon
+from App.Data.Helpers.task_helper import treat_task_to_message
+from App.Lib.Client.marina_api import MarinaAPI
 from App.Lib.Standard.abstract_handler_request import AbstractHandlerRequest
 from App.Queues.Standard.factory_queue import FactoryQueue
-from App.Lib.Client.marina_api import MarinaAPI
+
 
 class TaskHandler(AbstractHandlerRequest):
     _task = None
@@ -27,16 +30,18 @@ class TaskHandler(AbstractHandlerRequest):
 
     def answer_task_options(self):
         if self.is_edit_task_mode():
-            self.edit_task()
+            self.ask_edit_task()
         elif self.is_delete_task_mode():
             return self.delete_task()
 
     def is_edit_task_mode(self):
         return self.is_mode('main_task_edit_task')
 
-    def edit_task(self):
+    def ask_edit_task(self):
         task = MarinaAPI.instance().find_task(self.get_task())
-        
+        message = f'{edit_icon()} Informe a tarefa que deseja editar seguindo\
+            o exemplo a baixo: \n' + treat_task_to_message(task)
+        self.send_message(message)
 
     def is_delete_task_mode(self):
         return self.is_mode('main_task_delete_task')
