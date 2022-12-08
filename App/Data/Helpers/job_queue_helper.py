@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 from telegram.ext.callbackcontext import CallbackContext
 
 from App.Data.Helpers.task_helper import (get_tasks_from_schedules,
@@ -17,7 +19,17 @@ def append_today_tasks(context: CallbackContext):
 
 def get_schedule_to_jobs(daily_schedules: list):
     tasks = get_tasks_from_schedules(daily_schedules)
-    return list(map(treat_task_to_job, tasks))
+    tasks = list(map(treat_task_to_job, tasks))
+    deadline_alternatives = [60, 30, 10]
+
+    for task in tasks:
+        for minutes in deadline_alternatives:
+            task_alternative = deepcopy(task)
+            deadline = task_alternative['when']
+            task_alternative['when'] = get_minutes_before(deadline, minutes)
+            tasks.append(task_alternative)
+
+    return tasks
 
 
 def treat_task_to_job(task: dict):
