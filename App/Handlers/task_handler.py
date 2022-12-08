@@ -58,4 +58,6 @@ class TaskHandler(AbstractHandlerRequest):
 
     def edit_task(self):
         queue_name = 'Task.Edit.edit'
-        FactoryQueue.create(queue_name).init()
+        queue = FactoryQueue.create(queue_name)
+        queue.set_task_id(self.get_task())
+        queue.init()

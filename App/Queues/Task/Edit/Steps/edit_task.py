@@ -11,20 +11,20 @@ class EditTask(Edit):
         self.save()
         return super().handle()
 
-    def save(self): 
+    def save(self):
         updated = self.edit_task()
         self.notify(updated)
 
     def edit_task(self):
         task = self.get_task()
-        return MarinaAPI.instance().create_task(task)
-    
-    def notify(self, task: dict):       
+        return MarinaAPI.instance().edit_task(self.get_task_id(), task)
+
+    def notify(self, task: dict):
         if task.get('id'):
             message = f'{floppy_disk()} Tarefa <b>{task.get("name")}</b>'\
                 + ' alterada com sucesso.'
         else:
             message = f'{down_face()} Não consegui alterar a tarefa'\
-            + f' <b>{task.get("name")}</b> para você.'
-        
+                + f' <b>{task.get("name")}</b> para você.'
+
         self.send_message(message)
