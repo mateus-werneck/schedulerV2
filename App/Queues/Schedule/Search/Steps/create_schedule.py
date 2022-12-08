@@ -8,10 +8,11 @@ from App.Queues.Schedule.Search.search import Search
 class CreateSchedule(Search):
     
     def handle(self) -> bool:
-        if not self.has_active_schedule():
+        if self.has_active_schedule():
             return super().handle()
         
         schedule = self.create_schedule()
+        self.get_logger().critical(f'CREATED SCHEDULE: {str(schedule)}')
         self.set_schedule(schedule)
         return super().handle()
     

@@ -9,14 +9,15 @@ class CheckScheduleExists(Search):
     schedule_dates = []
     
     def handle(self) -> bool:
-        if not self.has_active_schedule():
+        if not self.has_schedule():
             return super().handle()
         
         schedule = self.find_schedule()
+        self.get_logger().critical(f'FOUND SCHEDULE: {str(schedule)}')
         self.set_schedule(schedule)
         return super().handle(True)
     
-    def has_active_schedule(self):        
+    def has_schedule(self):        
         if not self.get_grade().get('schedules'):
             return False
 
