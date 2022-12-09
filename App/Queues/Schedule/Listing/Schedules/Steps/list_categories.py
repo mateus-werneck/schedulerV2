@@ -17,7 +17,7 @@ class ListCategories(ListSchedulesOptions):
 
     def set_callback(self):
         menu = self.send_menu()
-        callback_function = ScheduleHandlers.instance().execute
+        callback_function = SchedulesHandler.instance().execute
         BotClient.instance().add_callback_handler(menu, callback_function)
 
     def send_menu(self):
