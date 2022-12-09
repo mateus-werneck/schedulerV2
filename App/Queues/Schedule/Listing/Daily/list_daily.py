@@ -11,6 +11,7 @@ class ListDaily(AbstractHandler):
     def get_steps(self) -> list:
         return [
             'find_tasks',
+            'check_tasks',
             'list_all'
         ]
 
