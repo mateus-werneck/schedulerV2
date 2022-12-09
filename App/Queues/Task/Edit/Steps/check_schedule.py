@@ -8,7 +8,6 @@ from App.Queues.Task.Edit.edit import Edit
 
 
 class CheckSchedule(Edit):
-    schedule_dates = []
     grade = None
 
     def handle(self) -> bool:
@@ -33,11 +32,10 @@ class CheckSchedule(Edit):
         task['scheduleId'] = schedule.get('id')
     
     def find_schedule(self):
-        grade = self.get_grade()
         deadline = self.get_task().get('deadLine')
 
         queue = FactoryQueue.create('Schedule.Search.search')
-        queue.set_grade(grade)
+        queue.set_grade(self.grade)
         queue.set_deadline(deadline)
         queue.init()
 
