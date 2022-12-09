@@ -12,7 +12,7 @@ def start_client():
     Init()
     
     bot.add_message_handler()
-    FactoryQueue.instance().create('Jobs.Daily.update').init()
+    FactoryQueue.create('Jobs.Daily.update').init()
     bot.get_client().start_polling()
     Logger.instance().info('[BotClient] Bot started successfully.')
 

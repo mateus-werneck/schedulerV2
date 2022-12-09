@@ -30,7 +30,7 @@ class ListCategories(ListSchedulesOptions):
         return f'Escolha um opção de cronograma {category_icon()}'
 
     def get_menu(self):
-        menu_name = 'main_agendas'
+        menu_name = 'schedule'
         options = treat_keyboard(self.get_options(), menu_name, 3)
         append_back_button(options, menu_name)
         return treat_menu(options)
