@@ -19,6 +19,8 @@ class SchedulesHandler(AbstractHandlerRequest):
             .init()
 
     def answer_options(self):
+        self.delete_message()
+        
         if self.is_daily_mode():
             self.daily_mode()
 
