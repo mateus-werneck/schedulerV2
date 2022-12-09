@@ -25,7 +25,7 @@ class CheckSchedule(Edit):
         
         current_deadline = treat_string_to_datetime(task_data.get('deadLine'))
         old_deadline = treat_node_string(task.get('deadLine'))
-        return current_deadline == old_deadline
+        return current_deadline != old_deadline
     
     def set_schedule_id(self):
         task = self.get_task()
