@@ -10,7 +10,8 @@ class SchedulesHandler(AbstractHandlerRequest):
     def get_steps(self) -> list:
         return [
             self.list_options,
-            self.answer_options
+            self.answer_options,
+            self.start_task_mode
         ]
 
     def list_options(self):
@@ -20,7 +21,7 @@ class SchedulesHandler(AbstractHandlerRequest):
 
     def answer_options(self):
         self.delete_message()
-        
+
         if self.is_daily_mode():
             self.daily_mode()
 
@@ -36,3 +37,7 @@ class SchedulesHandler(AbstractHandlerRequest):
 
     def is_monthly_mode(self):
         return self.is_mode('schedule_list_monthly')
+
+    def start_task_mode(self):
+        queue = 'Task.Listing.TaskOptions.list_task_options'
+        FactoryQueue.create(queue).init()

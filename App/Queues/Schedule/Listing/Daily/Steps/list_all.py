@@ -8,7 +8,7 @@ from App.Data.Helpers.inline_keyboard_helper import (append_exit_button,
                                                      treat_keyboard,
                                                      treat_menu)
 from App.Data.Helpers.message_helper import category_icon
-from App.Handlers.task_handler import TaskHandler
+from App.Handlers.schedules_handler import SchedulesHandler
 
 
 class ListAll(ListDaily):
@@ -19,7 +19,7 @@ class ListAll(ListDaily):
 
     def set_callback(self):
         menu = self.send_menu()
-        callback_function = TaskHandler.instance().execute
+        callback_function = SchedulesHandler.instance().execute
         BotClient.instance().add_callback_handler(menu, callback_function)
 
     def send_menu(self):

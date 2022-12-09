@@ -22,12 +22,6 @@ class TaskHandler(AbstractHandlerRequest):
     def get_steps(self) -> list:
         return [self.answer_task_options, self.edit_task]
 
-    def list_task_options(self):
-        task = self.get_callback_data()
-        self.set_task(task)
-        queue_name = 'Task.Listing.TaskOptions.list_task_options'
-        FactoryQueue.create(queue_name).init()
-
     def answer_task_options(self):
         self.delete_message()
         
