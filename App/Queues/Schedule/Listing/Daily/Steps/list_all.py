@@ -7,6 +7,7 @@ from App.Lib.Bot.client import BotClient
 from App.Data.Helpers.inline_keyboard_helper import (append_exit_button,
                                                      treat_keyboard,
                                                      treat_menu)
+from App.Data.Helpers.message_helper import category_icon
 
 
 class ListAll(ListDaily):
