@@ -18,7 +18,7 @@ class AbstractHandler(ABC):
         pass
 
     def init(self):
-        self.get_logger().info('[AbstractHandler] Started Queue [*]', context=self)
+        self.get_logger().info('[AbstractHandler] Started Queue: *', context=self)
         self.handle()
         return self
 
