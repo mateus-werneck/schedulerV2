@@ -1,6 +1,8 @@
 import os
 
 from App.Lib.Standard.abstract_connection import Connection
+from App.Lib.Treat.date_treat import today
+from App.Lib.Treat.week_day_treat import WeekDay
 
 
 class MarinaAPI(Connection):
@@ -32,7 +34,7 @@ class MarinaAPI(Connection):
             return []
         tasks = list()
         for schedule in grade['schedules']:
-                tasks += schedule['tasks']
+            tasks += schedule['tasks']
         return tasks
 
     def find_task(self, id: str):
@@ -49,6 +51,15 @@ class MarinaAPI(Connection):
 
     def list_today_tasks(self):
         return self.get('schedules/today')
+
+    def list_weekly_tasks(self):
+        week_day = WeekDay()
+        query_params = {
+            'initialDate': today(),
+            'finalDate': week_day.get_end_of_week_date()
+        }
+        
+        return self.get('schedules', query_params)
 
     def create_schedule(self, data: dict):
         return self.post('schedules', data)

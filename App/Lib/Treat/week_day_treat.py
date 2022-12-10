@@ -1,9 +1,10 @@
 from datetime import datetime, timedelta
 
-from App.Lib.Errors.WeekDay.week_day_limit_exception \
-    import WeekDayExceededException
-from App.Lib.Errors.WeekDay.week_day_utc_exception \
-    import WeekDayUtcNotFoundException
+from App.Lib.Errors.WeekDay.week_day_limit_exception import \
+    WeekDayExceededException
+from App.Lib.Errors.WeekDay.week_day_utc_exception import \
+    WeekDayUtcNotFoundException
+from App.Lib.Treat.date_treat import get_minutes_after, treat_date_to_string
 
 
 class WeekDay:
@@ -64,3 +65,28 @@ class WeekDay:
         self.current_recursion += self.current_recursion
         if self.current_recursion > self.recursion_limit:
             raise WeekDayExceededException()
+        
+    def get_end_of_week_date(self):
+        today = datetime.today()
+        
+        if self.is_last_day_week(today):
+            return treat_date_to_string(today)
+        
+        current_day = self.get_week_day_from_date(today)
+        days_after = self.get_days_before_week_last_day(current_day)
+        return self.get_date_after_some_days(today, days_after)
+        
+    def is_last_day_week(self, date: datetime):    
+        current_day = self.get_week_day_from_date(date)
+        return current_day == 'sunday'
+    
+    def get_days_before_week_last_day(self, day: str):
+        week_days = list(self.get_week_days().keys())
+        day_index = week_days.index(day.capitalize())
+        last_day_index = week_days.index('Sunday')
+        return last_day_index - day_index
+            
+    def get_date_after_some_days(self, date: datetime, days: int):
+        days_minutes = days * 1440
+        next_date = get_minutes_after(date, days_minutes)
+        return treat_date_to_string(next_date)

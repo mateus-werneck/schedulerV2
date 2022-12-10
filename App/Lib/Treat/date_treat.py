@@ -5,6 +5,7 @@ from pytz import timezone
 
 node_format = '%Y-%m-%dT%H:%M:%S.%fZ'
 iso_format = '%Y-%m-%d %H:%M:%S'
+standard_date = '%Y-%m-%d'
 pt_br_format = '%d/%m/%Y'
 
 
@@ -34,7 +35,8 @@ def treat_string_to_datetime(date: str):
     local_zone = timezone('America/Sao_Paulo')
     return datetime.strptime(date, iso_format)\
         .replace(tzinfo=local_zone)
-        
+
+
 def treat_pt_string_to_datetime(date: str):
     local_zone = timezone('America/Sao_Paulo')
     return datetime.strptime(date, pt_br_format)\
@@ -43,6 +45,10 @@ def treat_pt_string_to_datetime(date: str):
 
 def treat_datetime_to_string(date: datetime):
     return datetime.strftime(date, iso_format)
+
+
+def treat_date_to_string(date: datetime):
+    return datetime.strftime(date, standard_date)
 
 
 def treat_datetime_to_pt_date(date: datetime):
@@ -59,3 +65,7 @@ def get_minutes_after(date: datetime, minutes: float):
 
 def add_time_to_date(date: datetime, time_obj: time):
     return date + timedelta(hours=time_obj.hour, minutes=time_obj.minute)
+
+def today():
+    today = datetime.today()
+    return treat_date_to_string(today)
