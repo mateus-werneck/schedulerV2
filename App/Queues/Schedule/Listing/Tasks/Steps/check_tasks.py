@@ -1,8 +1,8 @@
-from App.Queues.Schedule.Listing.Daily.list_daily import ListDaily
 from App.Data.Helpers.message_helper import down_face
+from App.Queues.Schedule.Listing.Tasks.list_tasks import ListTasks
 
 
-class CheckTasks(ListDaily):
+class CheckTasks(ListTasks):
 
     def handle(self):
         force_stop = self.force_stop()
