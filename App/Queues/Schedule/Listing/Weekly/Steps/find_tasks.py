@@ -9,8 +9,8 @@ from App.Queues.Schedule.Listing.Weekly.list_weekly import ListWeekly
 class FindTasks(ListWeekly):
 
     def handle(self):
-        daily_tasks = self.find_weekly()
-        self.set_tasks(daily_tasks)
+        weekly_tasks = self.find_weekly()
+        self.set_tasks(weekly_tasks)
         return super().handle()
 
     def find_weekly(self):

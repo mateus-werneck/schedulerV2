@@ -26,6 +26,8 @@ class SchedulesHandler(AbstractHandlerRequest):
             self.daily_mode()
         elif self.is_weekly_mode():
             self.weekly_mode()
+        elif self.is_monthly_mode():
+            self.monthly_mode()
 
     def is_daily_mode(self):
         return self.is_mode('schedule_list_daily')
@@ -43,6 +45,10 @@ class SchedulesHandler(AbstractHandlerRequest):
 
     def is_monthly_mode(self):
         return self.is_mode('schedule_list_monthly')
+    
+    def monthly_mode(self):
+        FactoryQueue.create('Schedule.Listing.Monthly.list_monthly')\
+            .init()
 
     def start_task_mode(self):
         queue = 'Task.Listing.TaskOptions.list_task_options'
