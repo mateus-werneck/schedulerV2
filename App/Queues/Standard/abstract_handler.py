@@ -30,7 +30,7 @@ class AbstractHandler(ABC):
         self.set_next()
 
         if not self.has_finished():
-            step_name = self.__class__.__name__
+            step_name = self.__next_handler.__class__.__name__
             parent_class, = self.__next_handler.__class__.__bases__
             parent_name = parent_class.__name__
             self.get_logger().info(f'[AbstractHandler] [{parent_name}]'

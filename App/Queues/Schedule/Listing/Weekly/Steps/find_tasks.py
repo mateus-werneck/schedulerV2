@@ -8,11 +8,11 @@ from App.Queues.Schedule.Listing.Weekly.list_weekly import ListWeekly
 class FindTasks(ListWeekly):
 
     def handle(self):
-        daily_tasks = self.find_daily()
+        daily_tasks = self.find_weekly()
         self.set_tasks(daily_tasks)
         return super().handle()
 
-    def find_daily(self):
+    def find_weekly(self):
         daily = MarinaAPI.instance().list_weekly_tasks()
         tasks = get_tasks_from_schedules(daily)
         return [self.treat_task(task) for task in tasks]
