@@ -2,7 +2,7 @@ from App.Data.Helpers.inline_keyboard_helper import (append_exit_button,
                                                      treat_keyboard,
                                                      treat_menu)
 from App.Data.Helpers.message_helper import (category_icon, cross_mark_icon,
-                                             edit_icon, open_book_icon)
+                                             edit_icon, open_book_icon, add_icon)
 from App.Handlers.grade_handler import GradeHandler
 from App.Lib.Bot.chat import BotChat
 from App.Lib.Bot.client import BotClient
@@ -41,6 +41,10 @@ class ListCategories(ListGradesOptions):
             {
                 'id': 'list_tasks',
                 'name': f'{open_book_icon()} Listar Tarefas'
+            },
+            {
+                'id': 'create_task',
+                'name': f'{add_icon()} Cadastrar Tarefa'
             },
             {
                 'id': 'edit_grade',

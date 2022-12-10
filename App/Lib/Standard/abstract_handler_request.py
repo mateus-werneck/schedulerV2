@@ -66,7 +66,7 @@ class AbstractHandlerRequest(ABC):
         if not self.__should_execute_next_step():
             return self.finish(True)
 
-        self.__set_bot_mode()
+        self.set_bot_mode()
         self.next()
         self.__handle_step()
 
@@ -105,7 +105,7 @@ class AbstractHandlerRequest(ABC):
     def is_first_step(self):
         return self.get_current_step() == 0
 
-    def __set_bot_mode(self):
+    def set_bot_mode(self):
         BotMode.instance().set_mode(self)
 
     def next(self):
