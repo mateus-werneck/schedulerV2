@@ -1,3 +1,4 @@
+from calendar import monthrange
 from datetime import datetime, timedelta
 
 from App.Lib.Errors.WeekDay.week_day_limit_exception import \
@@ -90,3 +91,7 @@ class WeekDay:
         days_minutes = days * 1440
         next_date = get_minutes_after(date, days_minutes)
         return treat_date_to_string(next_date)
+
+    def get_end_of_month_date(self):
+        today = datetime.today()
+        day = today

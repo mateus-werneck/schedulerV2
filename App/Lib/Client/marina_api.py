@@ -60,6 +60,15 @@ class MarinaAPI(Connection):
         }
         
         return self.get('schedules', query_params)
+    
+    def list_monthly_tasks(self):
+        week_day = WeekDay()
+        query_params = {
+            'initialDate': today(),
+            'finalDate': week_day.get_end_of_week_date()
+        }
+        
+        return self.get('schedules', query_params)
 
     def create_schedule(self, data: dict):
         return self.post('schedules', data)
