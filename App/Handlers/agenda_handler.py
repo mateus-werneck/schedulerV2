@@ -1,8 +1,8 @@
 from App.Lib.Standard.abstract_handler_request import AbstractHandlerRequest
 from App.Queues.Standard.factory_queue import FactoryQueue
+from App.Handlers.schedules_handler import SchedulesHandler
 
-
-class ScheduleHandler(AbstractHandlerRequest):
+class AgendaHandler(AbstractHandlerRequest):
 
     def get_command(self) -> str:
         return 'agenda'
@@ -15,16 +15,21 @@ class ScheduleHandler(AbstractHandlerRequest):
         FactoryQueue.create(queue).init()
 
     def answer_list_options(self):
+        self.delete_message()
+        
         if self.is_grade_mode():
             queue = 'Schedule.Listing.Grade.list_grade_options'
             FactoryQueue.create(queue).init()
         elif self.is_task_mode():
             return
-
-        self.delete_message()
+        elif self.is_schedule_mode():
+            SchedulesHandler.instance().execute()
 
     def is_grade_mode(self):
         return self.is_mode('main_agenda_list_grades')
 
     def is_task_mode(self):
         return self.is_mode('main_agenda_list_tasks')
+    
+    def is_schedule_mode(self):
+        return self.is_mode('main_agenda_list_schedule')

@@ -3,7 +3,7 @@ from App.Data.Helpers.inline_keyboard_helper import (append_back_button,
                                                      treat_menu)
 from App.Data.Helpers.message_helper import (calendar_icon, category_icon,
                                              group_icon, pin_icon)
-from App.Handlers.schedule_handler import ScheduleHandler
+from App.Handlers.agenda_handler import AgendaHandler
 from App.Lib.Bot.chat import BotChat
 from App.Lib.Bot.client import BotClient
 from App.Queues.Schedule.Listing.Schedule.list_schedule_options import \
@@ -18,7 +18,7 @@ class ListCategories(ListScheduleOptions):
 
     def set_callback(self):
         menu = self.send_menu()
-        callback_function = ScheduleHandler.instance().execute
+        callback_function = AgendaHandler.instance().execute
         BotClient.instance().add_callback_handler(menu, callback_function)
 
     def send_menu(self):
