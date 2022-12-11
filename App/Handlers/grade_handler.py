@@ -1,6 +1,7 @@
+from App.Handlers.tasks_handler import TasksHandler
 from App.Lib.Standard.abstract_handler_request import AbstractHandlerRequest
 from App.Queues.Standard.factory_queue import FactoryQueue
-from App.Handlers.tasks_handler import TasksHandler
+
 
 class GradeHandler(AbstractHandlerRequest):
 
@@ -59,11 +60,12 @@ class GradeHandler(AbstractHandlerRequest):
         return self.is_mode('main_grade_create_task')
     
     def create_task(self):
+        self.finish(True)
         TasksHandler.instance().next()
         TasksHandler.instance().set_grade(self.grade)
         TasksHandler.instance().ask_task_data()
         TasksHandler.instance().set_bot_mode()
-        return False
+       
         
     def edit_grade(self):
         queue = FactoryQueue.create('Grade.Edit.edit')
