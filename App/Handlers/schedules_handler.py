@@ -45,7 +45,7 @@ class SchedulesHandler(AbstractHandlerRequest):
 
     def is_monthly_mode(self):
         return self.is_mode('schedule_list_monthly')
-    
+
     def monthly_mode(self):
         FactoryQueue.create('Schedule.Listing.Monthly.list_monthly')\
             .init()

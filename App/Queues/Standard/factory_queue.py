@@ -1,9 +1,7 @@
 from importlib import import_module
 
-from App.Lib.Standard.abstract_singleton import AbstractSingleton
 
-
-class FactoryQueue(AbstractSingleton):
+class FactoryQueue:
     _queues = {}
 
     @staticmethod
