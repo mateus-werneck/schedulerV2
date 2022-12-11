@@ -33,6 +33,6 @@ class ListAll(ListTasks):
 
     def get_menu(self):
         menu_name = 'schedules_tasks'
-        options = treat_keyboard(self.get_tasks(), menu_name, 2)
+        options = treat_keyboard(self.get_tasks(), menu_name)
         append_exit_button(options, menu_name)
         return treat_menu(options)
