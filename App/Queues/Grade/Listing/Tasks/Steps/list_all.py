@@ -1,5 +1,4 @@
-from App.Data.Helpers.inline_keyboard_helper import (append_custom_button,
-                                                     append_exit_button,
+from App.Data.Helpers.inline_keyboard_helper import (append_exit_button,
                                                      treat_keyboard,
                                                      treat_menu)
 from App.Data.Helpers.message_helper import add_icon, category_icon, down_face
@@ -34,12 +33,8 @@ class ListAll(ListTasks):
     def get_menu(self):
         options = self.get_options()
         menu_name = 'main_tasks'
-        options = treat_keyboard(options, menu_name)
-        
-        append_custom_button(options, menu_name, 'create_task',
-                             f' {add_icon()} Cadastrar Tarefa')
+        options = treat_keyboard(options, menu_name, 2)
         append_exit_button(options, menu_name)
-        
         return treat_menu(options)
 
     def get_options(self):

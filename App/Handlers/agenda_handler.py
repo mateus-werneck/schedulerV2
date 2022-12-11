@@ -1,6 +1,7 @@
+from App.Handlers.Standard.factory_handler import FactoryHandler
 from App.Lib.Standard.abstract_handler_request import AbstractHandlerRequest
 from App.Queues.Standard.factory_queue import FactoryQueue
-from App.Handlers.schedules_handler import SchedulesHandler
+
 
 class AgendaHandler(AbstractHandlerRequest):
 
@@ -23,7 +24,8 @@ class AgendaHandler(AbstractHandlerRequest):
         elif self.is_task_mode():
             return
         elif self.is_schedule_mode():
-            SchedulesHandler.instance().execute()
+            schedules_handler = FactoryHandler.create('schedules_handler')
+            schedules_handler.execute()
 
     def is_grade_mode(self):
         return self.is_mode('main_agenda_list_grades')

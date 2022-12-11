@@ -164,6 +164,8 @@ class AbstractHandlerRequest(ABC):
         return not (step_result is None or step_result)
 
     def __save_step_log(self):
+        if self.step is None:
+            return
         message = f'[*] Excecuted step: "{self.step.__name__}".'
         Logger.instance().info(message, context=self)
 
@@ -181,6 +183,8 @@ class AbstractHandlerRequest(ABC):
         return self.is_last_step()
 
     def is_last_step(self):
+        if self.step is None:
+            return False
         last_step = self.get_steps().pop()
         return last_step.__name__ == self.step.__name__
 
