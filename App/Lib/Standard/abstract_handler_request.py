@@ -108,9 +108,7 @@ class AbstractHandlerRequest(ABC):
             BotChat.instance().extract_callback_data()
             self.__go_back_parent_handler()
             return False
-
-        # message = f'[*] Going back from step: {self.__get_go_back_step_name()}'
-
+        
         steps = self.get_steps()
         last_step = self.__get_last_step()
         self.step = None if last_step < 0 else steps[last_step]
