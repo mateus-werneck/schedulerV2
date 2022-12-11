@@ -49,6 +49,9 @@ class MarinaAPI(Connection):
     def delete_task(self, id: str):
         return self.delete(f'tasks/{id}')
 
+    def list_tasks(self):
+        return self.get('schedules')
+    
     def list_today_tasks(self):
         return self.get('schedules/today')
 

@@ -3,19 +3,19 @@ from App.Lib.Client.marina_api import MarinaAPI
 from App.Lib.Treat.date_treat import (treat_datetime_to_pt_date,
                                       treat_node_string)
 from App.Lib.Treat.time_treat import treat_datetime_to_string_hour
-from App.Queues.Schedule.Listing.Weekly.list_weekly import ListWeekly
+from App.Queues.Schedule.Listing.All.list_all_tasks import ListAllTasks
 
 
-class FindTasks(ListWeekly):
+class FindTasks(ListAllTasks):
 
     def handle(self):
-        weekly_tasks = self.find_weekly()
-        self.set_tasks(weekly_tasks)
+        monthly_tasks = self.find_monthly()
+        self.set_tasks(monthly_tasks)
         return super().handle()
 
-    def find_weekly(self):
-        weekly = MarinaAPI.instance().list_weekly_tasks()
-        tasks = get_tasks_from_schedules(weekly)
+    def find_monthly(self):
+        tasks = MarinaAPI.instance().list_tasks()
+        tasks = get_tasks_from_schedules(tasks)
         return [self.treat_task(task) for task in tasks]
 
     def treat_task(self, task: dict):

@@ -14,8 +14,8 @@ class FindTasks(ListMonthly):
         return super().handle()
 
     def find_monthly(self):
-        daily = MarinaAPI.instance().list_monthly_tasks()
-        tasks = get_tasks_from_schedules(daily)
+        monthly = MarinaAPI.instance().list_monthly_tasks()
+        tasks = get_tasks_from_schedules(monthly)
         return [self.treat_task(task) for task in tasks]
 
     def treat_task(self, task: dict):
