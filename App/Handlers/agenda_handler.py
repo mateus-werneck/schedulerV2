@@ -17,12 +17,13 @@ class AgendaHandler(AbstractHandlerRequest):
 
     def answer_list_options(self):
         self.delete_message()
-        
+
         if self.is_grade_mode():
             queue = 'Schedule.Listing.Grade.list_grade_options'
             FactoryQueue.create(queue).init()
         elif self.is_task_mode():
-            return
+            current_tasks = FactoryHandler.create('current_tasks_handler')
+            current_tasks.execute()
         elif self.is_schedule_mode():
             schedules_handler = FactoryHandler.create('schedules_handler')
             schedules_handler.execute()
@@ -32,6 +33,6 @@ class AgendaHandler(AbstractHandlerRequest):
 
     def is_task_mode(self):
         return self.is_mode('main_agenda_list_tasks')
-    
+
     def is_schedule_mode(self):
         return self.is_mode('main_agenda_list_schedule')
