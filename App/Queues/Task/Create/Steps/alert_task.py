@@ -1,6 +1,7 @@
 
 from App.Data.Helpers.job_queue_helper import append_today_tasks
-from App.Lib.Treat.date_treat import today, treat_date_to_string
+from App.Lib.Treat.date_treat import (today, treat_date_to_string,
+                                      treat_string_to_datetime)
 from App.Queues.Task.Create.create import Create
 
 
