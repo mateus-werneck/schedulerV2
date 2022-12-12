@@ -47,7 +47,7 @@ class ListAll(ListTasks):
             return None
 
         menu_name = 'main_tasks'
-        options = treat_keyboard(options, menu_name, 2)
+        options = treat_keyboard(options, menu_name)
         append_exit_button(options, menu_name)
         return treat_menu(options)
 
