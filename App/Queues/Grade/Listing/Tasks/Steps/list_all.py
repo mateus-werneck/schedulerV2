@@ -17,6 +17,8 @@ class ListAll(ListTasks):
 
     def set_callback(self):
         menu = self.send_menu()
+        if not menu:
+            return
         callback_function = TasksHandler.instance().execute
         BotClient.instance().add_callback_handler(menu, callback_function)
         TasksHandler.instance().set_grade(self.get_grade())
@@ -24,6 +26,11 @@ class ListAll(ListTasks):
     def send_menu(self):
         title = self.get_title()
         menu = self.get_menu()
+
+        if not menu:
+            self.send_message(f'{down_face()} Nenhuma tarefa foi encontrada.')
+            return None
+
         BotChat.instance().send_callback_query(title, menu)
         return menu
 
@@ -32,6 +39,10 @@ class ListAll(ListTasks):
 
     def get_menu(self):
         options = self.get_options()
+
+        if not options:
+            return None
+
         menu_name = 'main_tasks'
         options = treat_keyboard(options, menu_name, 2)
         append_exit_button(options, menu_name)
