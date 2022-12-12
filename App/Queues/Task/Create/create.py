@@ -15,7 +15,8 @@ class Create(AbstractHandler):
         return [
             'set_task',
             'set_schedule',
-            'save_task'
+            'save_task',
+            'alert_task'
         ]
     
     def get_namespace(self) -> str:

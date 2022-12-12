@@ -10,7 +10,7 @@ from App.Lib.Log.logger import Logger
 from App.Lib.Treat.date_treat import get_minutes_before, treat_node_string
 
 
-def append_today_tasks(context: CallbackContext):
+def append_today_tasks(context: CallbackContext = None):
     Logger.instance().info('Registering new tasks for today.')
     daily_schedules = MarinaAPI.instance().list_today_tasks()
     daily_jobs = get_schedule_to_jobs(daily_schedules)
