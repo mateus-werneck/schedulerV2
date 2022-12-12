@@ -6,6 +6,9 @@ from App.Handlers.tasks_handler import TasksHandler
 from App.Lib.Bot.chat import BotChat
 from App.Lib.Bot.client import BotClient
 from App.Lib.Client.marina_api import MarinaAPI
+from App.Lib.Treat.date_treat import (treat_datetime_to_pt_date,
+                                      treat_node_string)
+from App.Lib.Treat.time_treat import treat_datetime_to_string_hour
 from App.Queues.Grade.Listing.Tasks.list_tasks import ListTasks
 
 
@@ -50,5 +53,15 @@ class ListAll(ListTasks):
 
     def get_options(self):
         grade = self.get_grade()
-        options = MarinaAPI.instance().list_grade_tasks(grade)
-        return options
+        tasks = MarinaAPI.instance().list_grade_tasks(grade)
+        return [self.treat_task(task) for task in tasks]
+
+    def treat_task(self, task: dict):
+        deadline = treat_node_string(task.get('deadLine'))
+        deadline_date = treat_datetime_to_pt_date(deadline)
+        deadline_hour = treat_datetime_to_string_hour(deadline)
+
+        return {
+            'id': task.get('id'),
+            'name': f'{task.get("name")} - {deadline_date} - {deadline_hour}'
+        }
