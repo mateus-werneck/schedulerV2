@@ -12,5 +12,6 @@ class CurrentTaskHandler(AbstractHandlerRequest):
         return [self.list_tasks]
 
     def list_tasks(self):
-        FactoryQueue.create('Schedule.Listing.All.list_all_tasks')\
+        queue = 'Schedule.Listing.ScheduleOptions.list_schedule_options'
+        FactoryQueue.create(queue)\
             .init()

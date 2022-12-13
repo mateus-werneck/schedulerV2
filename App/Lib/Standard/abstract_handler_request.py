@@ -208,6 +208,9 @@ class AbstractHandlerRequest(ABC):
     def has_valid_text_data(self):
         data = self.get_text_data()
         return data is not None and data != '' and data
-
+    
+    def has_callback_data(self):
+        self.bot_context.has_callback_data()
+    
     def get_callback_data(self):
         return BotChat.instance().extract_callback_data()
