@@ -5,19 +5,16 @@ from App.Queues.Standard.factory_queue import FactoryQueue
 class SchedulesHandler(AbstractHandlerRequest):
 
     def get_command(self) -> str:
-        return 'cronograma'
+        return ''
 
     def get_steps(self) -> list:
         return [
-            self.list_options,
             self.answer_options,
             self.start_task_mode
         ]
 
-    def list_options(self):
-        FactoryQueue\
-            .create('Schedule.Listing.Schedules.list_schedules_options')\
-            .init()
+    def get_parent_handler_name(self) -> str:
+        return 'agenda_handler'
 
     def answer_options(self):
         self.delete_message()

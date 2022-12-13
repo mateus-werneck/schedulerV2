@@ -19,20 +19,29 @@ class AgendaHandler(AbstractHandlerRequest):
         self.delete_message()
 
         if self.is_grade_mode():
-            queue = 'Schedule.Listing.Grade.list_grade_options'
-            FactoryQueue.create(queue).init()
+            self.grade_mode()
         elif self.is_task_mode():
-            current_tasks = FactoryHandler.create('current_tasks_handler')
-            current_tasks.execute()
+            self.task_mode()
         elif self.is_schedule_mode():
-            schedules_handler = FactoryHandler.create('schedules_handler')
-            schedules_handler.execute()
+            self.schedule_mode()
 
     def is_grade_mode(self):
         return self.is_mode('main_agenda_list_grades')
 
+    def grade_mode(self):
+        queue = 'Schedule.Listing.Grade.list_grade_options'
+        FactoryQueue.create(queue).init()
+
     def is_task_mode(self):
         return self.is_mode('main_agenda_list_tasks')
 
+    def task_mode(self):
+        current_tasks = FactoryHandler.create('current_task_handler')
+        current_tasks.execute()
+
     def is_schedule_mode(self):
         return self.is_mode('main_agenda_list_schedule')
+
+    def schedule_mode(self):
+        schedule_handler = FactoryHandler.create('schedule_handler')
+        schedule_handler.list_options()
