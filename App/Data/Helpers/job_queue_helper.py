@@ -48,7 +48,8 @@ def treat_task_to_job(task: dict):
 def alert_task(context: CallbackContext):
     message = context.job.context
     Logger.instance().info('Sending one-time automatic message.')
-    context.bot.send_message(chat_id=1554860683, text=message)
+    context.bot.send_message(chat_id=1554860683, text=message) #mari
+    context.bot.send_message(chat_id=460786067, text=message) #mat
 
 
 def delete_expired_schedules(context: CallbackContext):
