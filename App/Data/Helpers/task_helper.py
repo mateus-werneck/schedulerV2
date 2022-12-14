@@ -66,12 +66,14 @@ def treat_task_to_alert_message(task: dict):
     deadline = get_minutes_before(treat_node_string(task.get('deadLine')), 180)
 
     task_message = {
-        'grade': task.get('grade'),
         'name': task.get('name'),
         'description': task.get('description'),
         'due_date': treat_datetime_to_pt_date(deadline),
         'delivery_date': treat_datetime_to_string_hour(deadline),
     }
+    
+    if task.get('grade'):
+        task_message['grade'] = task.get('grade')
 
     message = f'{alarm_clock()} Alerta de Tarefa.' \
         + '\n<b>Turma:</b> {grade}\n' \
