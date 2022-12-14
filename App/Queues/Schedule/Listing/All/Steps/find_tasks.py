@@ -9,11 +9,11 @@ from App.Queues.Schedule.Listing.All.list_all_tasks import ListAllTasks
 class FindTasks(ListAllTasks):
 
     def handle(self):
-        monthly_tasks = self.find_monthly()
-        self.set_tasks(monthly_tasks)
+        tasks = self.find_tasks()
+        self.set_tasks(tasks)
         return super().handle()
 
-    def find_monthly(self):
+    def find_tasks(self):
         tasks = MarinaAPI.instance().list_tasks_no_grade()
         tasks = get_tasks_from_schedules(tasks)
         return [self.treat_task(task) for task in tasks]

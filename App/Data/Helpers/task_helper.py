@@ -48,6 +48,8 @@ def get_tasks_from_schedules(schedules: list):
 def treat_schedule_tasks(schedule: dict):
     tasks = schedule.get('tasks')
     for task in tasks:
+        if not task.get('grade'):
+            continue
         task['grade'] = schedule.get('grade')['name']
 
 
