@@ -22,7 +22,7 @@ def get_schedule_to_jobs(daily_schedules: list):
     tasks = list(map(treat_task_to_job, tasks))
     
     jobs = list()
-    deadline_alternatives = [60, 30, 10, 0]
+    deadline_alternatives = [60, 30, 10]
 
     for task in tasks:
         for minutes in deadline_alternatives:

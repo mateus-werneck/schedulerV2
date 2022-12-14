@@ -23,6 +23,6 @@ class SetJobs(Update):
     def append_add_tasks_job(self, jobs: list):
         jobs.append({
             'callback': append_today_tasks,
-            'time': treat_string_hour_to_time('09:50'),
+            'time': treat_string_hour_to_time('02:05'),
             'name': 'Add Today Tasks'
         })
