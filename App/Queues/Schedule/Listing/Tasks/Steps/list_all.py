@@ -1,5 +1,4 @@
-from App.Data.Helpers.inline_keyboard_helper import (append_back_button,
-                                                     append_exit_button,
+from App.Data.Helpers.inline_keyboard_helper import (append_exit_button,
                                                      treat_keyboard,
                                                      treat_menu)
 from App.Data.Helpers.message_helper import category_icon
@@ -35,14 +34,5 @@ class ListAll(ListTasks):
     def get_menu(self):
         menu_name = 'schedules_tasks'
         options = treat_keyboard(self.get_tasks(), menu_name)
-        self.append_back_button_if_necessary(options, menu_name)
         append_exit_button(options, menu_name)
         return treat_menu(options)
-    
-    def append_back_button_if_necessary(self, options: list, menu_name: str):
-        if not self.should_append_back_button():
-            return
-        append_back_button(options, menu_name)
-
-    def should_append_back_button(self):
-        return self.get_callback_handler().__class__ == CurrentTasksHandler
