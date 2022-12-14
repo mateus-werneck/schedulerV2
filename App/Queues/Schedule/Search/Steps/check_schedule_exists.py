@@ -13,7 +13,6 @@ class CheckScheduleExists(Search):
             return super().handle()
         
         schedule = self.find_schedule()
-        self.get_logger().critical(f'FOUND SCHEDULE: {str(schedule)}')
         self.set_schedule(schedule)
         return super().handle()
     

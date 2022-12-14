@@ -13,7 +13,6 @@ class CreateSchedule(Search):
             return super().handle()
         
         schedule = self.create_schedule()
-        self.get_logger().critical(f'CREATED SCHEDULE: {str(schedule)}')
         self.set_schedule(schedule)
         return super().handle()
     

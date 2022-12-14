@@ -58,7 +58,6 @@ class CurrentTasksHandler(AbstractHandlerRequest):
     def start_task_mode(self):
         handler = FactoryHandler.create('schedules_handler')
         handler.start_task_mode()
-        return True
 
     def create_task(self):
         if not self.has_valid_text_data():
@@ -67,4 +66,3 @@ class CurrentTasksHandler(AbstractHandlerRequest):
 
         queue = FactoryQueue.create('Task.Create.create')
         queue.init()
-        return True
