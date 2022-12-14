@@ -53,27 +53,6 @@ class AbstractHandlerRequest(ABC):
             return
         bot.add_command_handler(command, self.execute)
 
-    def get_handler_name(self):
-        return self.__class__.__name__
-
-    def get_handlers(self):
-        return list(self.__instances)
-
-    def has_handler(self, handler: str):
-        return handler in self.get_handlers()
-
-    def has_parent_handler(self):
-        parent_handler = self.get_parent_handler()
-        return parent_handler is not None\
-            and isinstance(parent_handler, AbstractHandlerRequest)
-
-    def reset_handler(self, handler: str):
-        if not self.has_handler(handler):
-            return
-        self.__instances[handler].step = None
-        message = f'[*] Reseting handler: {handler}'
-        Logger.instance().info(message, context=self)
-
     def execute(self, update: Update = None, context: CallbackContext = None):
         if not self.__handle_update(update, context):
             return
@@ -108,7 +87,7 @@ class AbstractHandlerRequest(ABC):
             BotChat.instance().extract_callback_data()
             self.__go_back_parent_handler()
             return False
-        
+
         steps = self.get_steps()
         last_step = self.__get_last_step()
         self.step = None if last_step < 0 else steps[last_step]
@@ -186,6 +165,27 @@ class AbstractHandlerRequest(ABC):
         last_step = self.get_steps().pop()
         return last_step.__name__ == self.step.__name__
 
+    def get_handler_name(self):
+        return self.__class__.__name__
+
+    def get_handlers(self):
+        return list(self.__instances)
+
+    def has_handler(self, handler: str):
+        return handler in self.get_handlers()
+
+    def has_parent_handler(self):
+        parent_handler = self.get_parent_handler()
+        return parent_handler is not None\
+            and isinstance(parent_handler, AbstractHandlerRequest)
+
+    def reset_handler(self, handler: str):
+        if not self.has_handler(handler):
+            return
+        self.__instances[handler].step = None
+        message = f'[*] Reseting handler: {handler}'
+        Logger.instance().info(message, context=self)
+
     def set_bot_mode(self):
         BotMode.instance().set_mode(self)
 
@@ -208,9 +208,9 @@ class AbstractHandlerRequest(ABC):
     def has_valid_text_data(self):
         data = self.get_text_data()
         return data is not None and data != '' and data
-    
+
     def has_callback_data(self):
         return self.bot_context.has_callback_data()
-    
+
     def get_callback_data(self):
         return BotChat.instance().extract_callback_data()

@@ -46,9 +46,10 @@ class CurrentTasksHandler(AbstractHandlerRequest):
         )
 
     def list_tasks(self):
-        FactoryQueue.create('Schedule.Listing.All.list_all_tasks')\
+        queue = FactoryQueue.create('Schedule.Listing.All.list_all_tasks')\
             .init()
-        return True
+        
+        return len(queue.get_tasks()) > 0
 
     def handle_actions(self):
         if self.has_callback_data():
