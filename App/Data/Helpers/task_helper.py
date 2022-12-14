@@ -72,11 +72,11 @@ def treat_task_to_alert_message(task: dict):
         'delivery_date': treat_datetime_to_string_hour(deadline),
     }
     
-    message = f'{alarm_clock()} Alerta de Tarefa.' 
+    message = f'{alarm_clock()} Alerta de Tarefa.\n' 
     
     if task.get('grade'):
         task_message['grade'] = task.get('grade')
-        message += '\n<b>Turma:</b> {grade}\n' 
+        message += '<b>Turma:</b> {grade}\n' 
 
     message += get_base_task_message()
     return message.format(**task_message)
