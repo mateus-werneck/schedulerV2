@@ -40,7 +40,6 @@ class CurrentTasksHandler(AbstractHandlerRequest):
         return get_base_task_message()\
             .format(
                 name='Tirar fotos para o Brechó',
-                description='Finalizar ensaio do Brechó',
                 due_date='31/12/2022',
                 delivery_date='15:30'
         )

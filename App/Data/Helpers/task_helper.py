@@ -14,12 +14,11 @@ def treat_string_to_task(new_task: str):
     task_props = [task.split(':', 1).pop().strip()
                   for task in new_task.split('\n')]
     
-    if len(task_props) != 4:
+    if len(task_props) != 3:
         return {}
     
     return {
         'name': task_props.pop(0),
-        'description': task_props.pop(0),
         'deadLine': get_deadline_from_message(
             task_props.pop(0), task_props.pop(0))
     }
@@ -56,7 +55,6 @@ def treat_schedule_tasks(schedule: dict):
 def get_base_task_message():
     return (
         '<b>Tarefa:</b> {name}\
-        \n<b>Descrição:</b> {description}\
         \n<b>Data Limite:</b> {due_date}\
         \n<b>Horário de entrega:</b> {delivery_date}\
     ')
@@ -67,7 +65,6 @@ def treat_task_to_alert_message(task: dict):
 
     task_message = {
         'name': task.get('name'),
-        'description': task.get('description'),
         'due_date': treat_datetime_to_pt_date(deadline),
         'delivery_date': treat_datetime_to_string_hour(deadline),
     }
@@ -87,7 +84,6 @@ def treat_task_to_message(task: dict):
 
     task_message = {
         'name': task.get('name'),
-        'description': task.get('description'),
         'due_date': treat_datetime_to_pt_date(deadline),
         'delivery_date': treat_datetime_to_string_hour(deadline),
     }

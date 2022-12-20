@@ -42,7 +42,6 @@ class TasksHandler(AbstractHandlerRequest):
         return get_base_task_message()\
             .format(
                 name='Preparar Lição 1',
-                description='Finalizar a preparação da Lição 1',
                 due_date='22/12/2022',
                 delivery_date='19:30'
         )
